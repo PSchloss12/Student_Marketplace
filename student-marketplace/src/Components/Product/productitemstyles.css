@@ -1,0 +1,59 @@
+/* Start of ProductItem css */
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 10px; /* Padding inside the item */
+    transition: transform 0.2s;
+    flex: 1;
+    min-height: 300px; /* Minimum height to keep the same */
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 150px; /* Set a max height to prevent overflow */
+    object-fit: contain;
+    margin: 0 auto; /* Center the image */
+    border: 2px solid black; /* Black border around the image */
+  }
+  
+  .product-title {
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .product-price {
+    font-size: 1.5em;
+    margin-top: auto; /* Push it to the bottom of the card */
+    margin-bottom: 10px; /* Space above the bottom border */
+    font-weight: bold;
+  }
+  
+  .product-no-image {
+    height: 150px;
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    margin-bottom: 10px; /* Space below when no image */
+    background-color: #f0f0f0; /* background color when no image */
+  }
+  
+  /* Ensure the price stays above the bottom border */
+  .product-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  /* End of ProductItem css */
