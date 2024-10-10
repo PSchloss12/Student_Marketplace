@@ -9,9 +9,9 @@ import {
 import Header from "../Header/Header.js";
 import SellerForm from "../Seller/SellerForm.js";
 import LoginPage from "../Login/LoginPage.js";
-import ProductPage from "../Product/ProductPage.js";
+import ProductPage from "../Product/ProductsPage.js";
 import MainPage from "./MainPage/MainPage.js";
-import ItemPage from "../Product/ItemPage/ItemPage.js";
+import ItemPage from "../Product/ProductDetails/ProductDetailsPage.js";
 
 const Main = () => {
   const [currentView, setCurrentView] = useState("productPage");
