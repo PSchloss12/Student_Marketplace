@@ -1,4 +1,5 @@
 // this page will allow users to add products the want to sell
+import './styles.css';
 import {useState} from "react";
   const SellerForm = () => {
     const [formData, setFormData] = useState({

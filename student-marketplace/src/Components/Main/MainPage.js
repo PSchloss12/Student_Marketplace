@@ -4,21 +4,21 @@ import {
     useEffect,
   } from "react";
   
-  import ProductItem from "../../Product/ProductItem.js";
-  import { getFavorites } from "../../../Services/getFavorites.js";
+  // import ProductItem from "./Product/ProductItem/ProductItem.js";
+  // import { getFavorites } from "../../../Services/getFavorites.js";
   
   const MainPage = ({ onNavigate }) => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
     var currUser = 2; // default user id for now - TODO: replace in future with id of user that is logged in
   
-    useEffect(() => {
-      console.log("render favorites");
-      // call getFavorites service
-      getFavorites(currUser).then((data) => {
-        setFeaturedProducts(data);
-      });
-    }, []);
+    // useEffect(() => {
+    //   console.log("render favorites");
+    //   // call getFavorites service
+    //   getFavorites(currUser).then((data) => {
+    //     setFeaturedProducts(data);
+    //   });
+    // }, []);
   
     const navigateToItemPage = (product) => {
       // handles navigation to item page when clicked
@@ -31,7 +31,7 @@ import {
           <h1>Welcome to ND Marketplace</h1>
           <p>The place to shop for all your college needs!</p>
         </header>
-        <section class="main-page-featured-products">
+        {/* <section class="main-page-featured-products">
           <h2>Featured Products</h2>
           <div class="main-page-product-listings">
             ${featuredProducts.map(
@@ -51,7 +51,7 @@ import {
               )
             )}
           </div>
-        </section>
+        </section> */}
       </div>
     );
   };
