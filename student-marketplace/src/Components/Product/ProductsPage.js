@@ -5,17 +5,17 @@ import {
   } from "react";
   
   import ProductItem from "./ProductItem/ProductItem.js";
-  import { getProducts } from "../../Services/Products.js";
+  import { getAllProducts } from "../../Services/Products.js";
   
   const ProductPage = ({ onNavigate }) => {
     const [category, setCategory] = useState("dormEssentials");
     const [priceLimit, setPriceLimit] = useState("");
     const [products, setProducts] = useState([]);
   
-    // call getProducts service
+    // call getAllProducts service
     useEffect(() => {
       console.log("render products");
-      getProducts().then((data) => {
+      getAllProducts().then((data) => {
         setProducts(data);
       });
     }, []);
@@ -69,13 +69,13 @@ import {
                 onClick={() => navigateToItemPage(product)}
                 style="cursor: pointer;"
               >
-                <{ProductItem}
+                {/* <{ProductItem}
                   key={product.id}
                   title={product.title}
                   price={product.price}
-                  image={product.image}
+                  image={product.imgUrl}
                   category={product.category}
-                />
+                /> */}
               </div>
           )
           )}

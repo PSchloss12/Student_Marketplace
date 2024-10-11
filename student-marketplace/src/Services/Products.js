@@ -1,36 +1,81 @@
-const axios = window.axios;
-const DBURL = "https://stwfk8.csb.app/DB/";
+import Parse from 'parse';
 
 // GET: all products
-export function getProducts() {
-  return axios
-    .get(DBURL + "products.json")
-    .then((response) => {
-      return response.data;
+export const getAllProducts = () => {
+  const Products = Parse.Object.extend("Products");
+  const query = new Parse.Query(Products);
+
+  return query
+    .find()
+    .then((results) => {
+      console.log("results: ", results);
+      return results;
     })
     .catch((error) => {
       console.error("Error fetching products:", error);
     });
-}
+};
+//Get: one product by id
+export const getProduct = (id) => {
+  const Product = Parse.Object.extend("Products");
+  const query = new Parse.Query(Product);
+  return query.get(id).then((result) => {
+    return result;
+  
+  });
+};
 
-// GET: selected products from db
-export function getFavorites(userID) {
-    if (!userID) {
-      return [];
-    }
-    userID = String(userID);
-  
-    return axios
-      .get(DBURL + "products.json")
-      .then((response) => {
-        const products = response.data;
-  
-        return axios.get(DBURL + "favorites.json").then((response) => {
-          let favoritesList = response.data[userID];
-          return products.filter((product) => favoritesList.includes(product.id));
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching favorites:", error);
-      });
+//Create operation - create product
+export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl, SellerId) => {
+  const Product = Parse.Object.extend("Products");
+  const product = new Product();
+  product.set("price", Price);
+  product.set("title", Title);
+  product.set("description", Description);
+  product.set("category", Category);
+  product.set("venmo", Venmo);
+  product.set("imgUrl", ImgUrl);
+  product.set("sellerId", SellerId);
+
+  return product.save().then((result) => {
+    return result;
+  });
+};
+
+//Delete operation - remove product by ID
+export const removeProduct = (id) => {
+  const Product = Parse.Object.extend("Products");
+  const query = new Parse.Query(Product);
+  return query.get(id).then((product) => {
+    product.destroy();
+
+  });
+};
+
+
+export const getFavorites = (id) => {
+  if (!id) {
+    return [];
   }
+
+  // Fetch the user by their ID
+  const User = Parse.Object.extend("Users");
+  const query = new Parse.Query(User);
+  
+  return query
+  .get(id) // Get the user by userID
+  .then((user) => {
+    const favoritesRelation = user.relation("favorites"); // Access the 'favorites' relation
+    const favoritesQuery = favoritesRelation.query(); // Get the query for the products
+
+    return favoritesQuery.find(); // Execute  query to get favorite products
+  })
+  .then((favoriteProducts) => {
+
+    return favoriteProducts; // Return the list of favorite products
+  })
+  .catch((error) => {
+    console.error("Error fetching favorites:", error);
+    return [];
+  });
+};
