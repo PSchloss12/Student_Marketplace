@@ -67,7 +67,7 @@ export const getFavorites = (id) => {
   }
 
   // Fetch the user by their ID
-  const User = Parse.Object.extend("_User");
+  const User = Parse.Object.extend("User");
   const query = new Parse.Query(User);
   
   return query
