@@ -2,8 +2,8 @@ import Parse from 'parse';
 
 // GET: all products
 export const getAllProducts = () => {
-  const Products = Parse.Object.extend("Products");
-  const query = new Parse.Query(Products);
+  const Product = Parse.Object.extend("Product");
+  const query = new Parse.Query(Product);
 
   return query
     .find()
@@ -17,7 +17,7 @@ export const getAllProducts = () => {
 };
 //Get: one product by id
 export const getProduct = (id) => {
-  const Product = Parse.Object.extend("Products");
+  const Product = Parse.Object.extend("Product");
   const query = new Parse.Query(Product);
   return query.get(id).then((result) => {
     return result;
@@ -27,15 +27,23 @@ export const getProduct = (id) => {
 
 //Create operation - create product
 export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl, SellerId) => {
-  const Product = Parse.Object.extend("Products");
+  const Product = Parse.Object.extend("Product");
   const product = new Product();
   product.set("price", Price);
   product.set("title", Title);
-  product.set("description", Description);
+  if (Description) {
+    product.set("description", Description);
+  }
   product.set("category", Category);
   product.set("venmo", Venmo);
-  product.set("imgUrl", ImgUrl);
-  product.set("sellerId", SellerId);
+
+  if (ImgUrl) {
+    product.set("imgUrl", ImgUrl);
+  }
+
+  const SellerPointer = new Parse.User();
+  SellerPointer.id = SellerId;  // Assign the id of the user to the pointer
+  product.set("sellerId", SellerPointer);
 
   return product.save().then((result) => {
     return result;
@@ -44,7 +52,7 @@ export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl
 
 //Delete operation - remove product by ID
 export const removeProduct = (id) => {
-  const Product = Parse.Object.extend("Products");
+  const Product = Parse.Object.extend("Product");
   const query = new Parse.Query(Product);
   return query.get(id).then((product) => {
     product.destroy();
@@ -59,7 +67,7 @@ export const getFavorites = (id) => {
   }
 
   // Fetch the user by their ID
-  const User = Parse.Object.extend("Users");
+  const User = Parse.Object.extend("_User");
   const query = new Parse.Query(User);
   
   return query

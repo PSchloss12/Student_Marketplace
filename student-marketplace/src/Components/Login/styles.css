@@ -1,0 +1,85 @@
+/* start of login page css */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the start to keep space at the top */
+    min-height: calc(100vh - 60px); /* Ensure enough space for the header */
+    background-color: #f0f0f0;
+    padding-top: 60px; /* Space for the header */
+    box-sizing: border-box; /* Include padding in height calculation */
+  }
+  
+  .login-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%; /* Responsive width */
+    max-width: 400px; /* Maximum width for larger screens */
+    margin-top: 20px; /* Space below the header */
+  }
+  
+  .login-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-form-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .login-form-input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .login-form-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .login-form-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-toggle-text {
+    text-align: center;
+  }
+  
+  .login-toggle-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-toggle-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media (max-width: 480px) {
+    .login-container {
+      padding: 20px; /* Less padding on smaller screens */
+    }
+  
+    .login-title {
+      font-size: 1.5em; /* Adjust title size */
+    }
+  
+    .login-form-input {
+      font-size: 14px; /* Smaller input font size */
+    }
+  }
+  /* end of login page css*/

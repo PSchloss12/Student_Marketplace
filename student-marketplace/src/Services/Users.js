@@ -1,12 +1,12 @@
 import Parse from 'parse';
 
 // POST: add user to db (when they signup)
-export const createUser = (Name, Email, Password) => {
-  const User = Parse.Object.extend("Users");
+export const createUser = (Username, Email, Password) => {
+  const User = Parse.Object.extend("_User");
   const user = new User();
-  user.set("name", Name);
   user.set("email", Email);
   user.set("password", Password);
+  user.set("username", Username)
   return user.save().then((result) => {
     return result;
   });
@@ -34,8 +34,8 @@ export const createUser = (Name, Email, Password) => {
 
 // GET: every user from db
 export const getAllUsers = () => {
-  const Users = Parse.Object.extend("Users");
-  const query = new Parse.Query(Users);
+  const User = Parse.Object.extend("_User");
+  const query = new Parse.Query(User);
   return query.find().then((results) => {
     console.log("results: ", results);
     return results;

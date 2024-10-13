@@ -1,27 +1,61 @@
-const LoginForm = ({ isLogin }) => {
-    return (
-      <form class="login-form">
-        <label class="login-form-label" for="email">Email:</label>
-        <input class="login-form-input" type="email" id="email" required />
-  
-        <label class="login-form-label" for="password">Password:</label>
-        <input class="login-form-input" type="password" id="password" required />
-  
-        {!isLogin && (
-          <>
-            <label class="login-form-label" for="confirm-password">Retype Password:</label>
-            <input
-              class="login-form-input"
-              type="password"
-              id="confirm-password"
-              required
-            />
-          </>
-        )}
-  
-        <button class="login-form-button" type="submit">
-          {isLogin ? "Login" : "Sign Up"}
-        </button>
-      </form>
-    );
-  };
+const LoginForm = ({isLogin, username, setUsername, email, setEmail, password,setPassword, handleSubmit}) => {
+  return (
+    <form className="login-form" onSubmit={handleSubmit}>
+      <label className="login-form-label" htmlFor="username">
+        Username:
+      </label>
+      <input
+        className="login-form-input"
+        type="text"
+        id="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        required
+      />
+
+      <label className="login-form-label" htmlFor="email">
+        Email:
+      </label>
+      <input
+        className="login-form-input"
+        type="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+
+      <label className="login-form-label" htmlFor="password">
+        Password:
+      </label>
+      <input
+        className="login-form-input"
+        type="password"
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+
+      {!isLogin && (
+        <>
+          <label className="login-form-label" htmlFor="confirm-password">
+            Retype Password:
+          </label>
+          <input
+            className="login-form-input"
+            type="password"
+            id="confirm-password"
+            required
+          />
+        </>
+      )}
+
+      <button className="login-form-button" type="submit">
+        {isLogin ? "Login" : "Sign Up"}
+      </button>
+    </form>
+  );
+};
+
+export default LoginForm;
