@@ -1,62 +1,66 @@
-/* Start of Product Page css */
+/* Start of Product Page CSS */
 
 .product-page {
-    width: calc(100% - 40px);
-    max-width: 1000px;
-    margin: 20px auto; /* Centering the page with margin */
-    padding: 20px; /* Padding inside the page */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .product-title {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .product-filter-section {
-    display: flex;
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Space between elements */
-  }
-  .filter-label {
-    margin: 0; /* Remove margin to keep labels inline */
-    font-weight: bold;
-  }
-  
-  .filter-select {
-    padding: 5px;
-    min-width: 150px; /* Set a minimum width */
-    align-items: center;
-  }
-  
-  .filter-input[type="number"] {
-    padding: 5px;
-    width: 150px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .product-filter-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .product-filter-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  .product-listings {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px; /* Space between product items */
-    margin-top: 20px;
-  }
-  
-  /* End of ProductPage css */
-  
+  width: calc(100% - 40px);
+  max-width: 1000px;
+  margin: 20px auto; /* Centering the page with margin */
+  padding: 20px; /* Padding inside the page */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.product-filter-section {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Space between elements */
+  flex-wrap: wrap; /* Allow elements to wrap on small screens */
+  justify-content: flex-start;
+}
+
+.filter-label {
+  margin: 0; /* Remove margin to keep labels inline */
+  font-weight: bold;
+}
+
+.filter-select,
+.filter-input {
+  padding: 5px;
+  min-width: 150px; /* Set a minimum width */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  align-items: center;
+}
+
+.filter-input[type="number"] {
+  width: 150px;
+}
+
+.product-filter-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px; /* Add a small margin to separate the button from the input */
+}
+
+.product-filter-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.product-listings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* Space between product items */
+  margin-top: 20px;
+}
+
+/* End of Product Page CSS */

@@ -6,19 +6,19 @@ import {
   
   import ProductItem from "./ProductItem/ProductItem.js";
   import { getAllProducts } from "../../Services/Products.js";
-  
-  const ProductPage = ({ onNavigate }) => {
+  import './styles.css';
+
+  const ProductPage = () => {
     const [category, setCategory] = useState("dormEssentials");
     const [priceLimit, setPriceLimit] = useState("");
     const [products, setProducts] = useState([]);
   
-    // call getAllProducts service
-    useEffect(() => {
-      console.log("render products");
-      getAllProducts().then((data) => {
-        setProducts(data);
-      });
-    }, []);
+  // Fetch all products
+  useEffect(() => {
+    getAllProducts().then((data) => {
+      setProducts(data);
+    });
+  }, []);
   
     const handleFilter = () => {
       console.log("Selected Category:", category);
@@ -26,17 +26,17 @@ import {
       // TODO: add filtering logic
     };
     const navigateToItemPage = (product) => {
-      // Set the current view to the ItemPage and pass the selected product
-      onNavigate("itemPage", product);
+      // Set the current view to the ItemPage and pass the selected product - 
+      // add routing to productdetailspage
     };
   
     return (
-      <div class="product-page">
-        <h1 class="product-title">Browse Listings</h1>
-        <div class="product-filter-section">
-          <label class="filter-label" for="category">Select Category:</label>
+      <div className="product-page">
+        <h1 className="product-title">Browse Listings</h1>
+        <div className="product-filter-section">
+          <label className="filter-label" htmlFor="category">Select Category:</label>
           <select
-            class="filter-select"
+            className="filter-select"
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -49,9 +49,9 @@ import {
             <option value="miscellaneous">Miscellaneous</option>
           </select>
   
-          <label class="filter-label" for="priceLimit">Price Limit ():</label>
+          <label className="filter-label" htmlFor="priceLimit">Price Limit ($):</label>
           <input
-            class="filter-input"
+            className="filter-input"
             type="number"
             id="priceLimit"
             placeholder="Enter Price Limit"
@@ -59,29 +59,26 @@ import {
             onInput={(e) => setPriceLimit(e.target.value)}
           />
   
-          <button class="filter-button" onClick={handleFilter}>Filter</button>
+          <button className="product-filter-button" onClick={handleFilter}>Filter</button>
         </div>
         <hr />
-        <div class="product-listings">
-          {products.map(
-            (product) => (
-              <div
-                onClick={() => navigateToItemPage(product)}
-                style="cursor: pointer;"
-              >
-                {/* <{ProductItem}
-                  key={product.id}
-                  title={product.title}
-                  price={product.price}
-                  image={product.imgUrl}
-                  category={product.category}
-                /> */}
-              </div>
-          )
-          )}
+        <div className="product-listings">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              onClick={() => navigateToItemPage(product)}
+              style={{ cursor: "pointer" }}
+            >
+              <ProductItem
+                title={product.get("title")}
+                price={product.get("price")}
+                image={product.get("imgUrl")?.url()}
+              />
+            </div>
+          ))}
         </div>
       </div>
-          );
+    );
   };
   export default ProductPage;
   

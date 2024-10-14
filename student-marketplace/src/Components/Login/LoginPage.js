@@ -37,7 +37,8 @@
   return (
     <div className="login-page">
       <div className="login-container">
-        <h1 className="login-title">{isLogin ? "Login" : "Sign Up"}</h1>
+        <h1 className="login-title">{isLogin ? "Login" : "Sign Up"} </h1>
+        <h3>Note: submitting won't work until auth is implemented in next feature </h3>
         <LoginForm
           isLogin={isLogin}
           username={username}
