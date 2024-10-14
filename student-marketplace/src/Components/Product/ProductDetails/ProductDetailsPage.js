@@ -1,5 +1,10 @@
 // An ProductDetailsPage is a more detailed view of a single selected product
-  
+import {
+  useState,
+} from "react";
+
+import './styles.css';
+
   const ProductDetailsPage = ({ product }) => {
     const [isBought, setIsBought] = useState(false);
     const [isWatched, setIsWatched] = useState(false);
@@ -7,30 +12,27 @@
     // TODO: add functionality to handle purchasing
   
     return (
-      <div class="item-page">
-        <h1 class="item-title">${product.title}</h1>
-        ${product.image
-          ? <img
-              class="item-image"
-              src={product.image}
-              alt={product.title}
-            />
-          : <div class="no-image">No Image Available</div>}
-        <div class="item-price">Price: $${product.price}</div>
-        <div class="item-description">${product.description}</div>
-        <div class="item-venmo">
-          <strong>Seller's Venmo:</strong> ${product.venmo}
+      <div className="item-page">
+        <h1 className="item-title">{product.get("title")}</h1>
+        {product.get("imgUrl") ? (
+          <img className="item-image" src={product.get("imgUrl").url()} alt={product.get("title")} />
+        ) : (
+          <div className="no-image">No Image Available</div>
+        )}
+        <div className="item-price">Price: ${product.get("price")}</div>
+        <div className="item-description">{product.get("description")}</div>
+        <div className="item-venmo">
+          <strong>Seller's Venmo:</strong> {product.get("venmo")}
         </div>
-        ${isBought &&
-        <div class="bought-message">Item marked as bought!</div>}
-        <div class="instruction">To purchase, please Venmo the seller.</div>
+        {isBought && <div className="bought-message">Item marked as bought!</div>}
+        <div className="instruction">To purchase, please Venmo the seller.</div>
         <div>
-          <button class="buy-button" onClick={() => setIsBought(true)}>
+          <button className="buy-button" onClick={() => setIsBought(true)}>
             Buy
           </button>
           <label>
             <input
-              class="checkbox"
+              className="checkbox"
               type="checkbox"
               onChange={() => setIsWatched(!isWatched)}
             />
@@ -38,7 +40,7 @@
           </label>
         </div>
       </div>
-        );
+    );
   };
   
   export default ProductDetailsPage;

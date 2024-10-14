@@ -4,54 +4,53 @@ import {
     useEffect,
   } from "react";
   
-  // import ProductItem from "./Product/ProductItem/ProductItem.js";
-  // import { getFavorites } from "../../../Services/getFavorites.js";
+  import ProductItem from "../Product/ProductItem/ProductItem";
+  import { getFavorites } from "../../Services/Products";
   
-  const MainPage = ({ onNavigate }) => {
+  const MainPage = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
-    var currUser = 2; // default user id for now - TODO: replace in future with id of user that is logged in
+    var currUser = 'dJcfo4qvL2'; // hardcoded user id for now
   
-    // useEffect(() => {
-    //   console.log("render favorites");
-    //   // call getFavorites service
-    //   getFavorites(currUser).then((data) => {
-    //     setFeaturedProducts(data);
-    //   });
-    // }, []);
+    useEffect(() => {
+      // Fetch the favorites for the current user
+      getFavorites(currUser).then((data) => {
+        setFeaturedProducts(data);
+      });
+    }, [currUser]); // Add currUser as a dependency so it reruns if the user changes
   
     const navigateToItemPage = (product) => {
-      // handles navigation to item page when clicked
-      onNavigate("itemPage", product);
+      // Handles navigation to the item page when clicked
+      // TODO: Implement navigation logic here
+      console.log("Navigate to product:", product);
     };
   
     return (
-      <div class="main-page">
-        <header class="main-page-header">
+      <div className="main-page">
+        <header className="main-page-header">
           <h1>Welcome to ND Marketplace</h1>
           <p>The place to shop for all your college needs!</p>
         </header>
-        {/* <section class="main-page-featured-products">
-          <h2>Featured Products</h2>
-          <div class="main-page-product-listings">
-            ${featuredProducts.map(
-              (product) => (
-                <div
-                  onClick={() => navigateToItemPage(product)}
-                  style="cursor: pointer;"
-                >
-                  <{ProductItem}
-                    key={product.id}
-                    title={product.title}
-                    price={product.price}
-                    image={product.image}
-                    category={product.category}
-                  />
-                </div>
-              )
-            )}
+        <section className="main-page-featured-products">
+          <h2>Your Favorite Products</h2>
+          <div className="main-page-product-listings">
+            {featuredProducts.map((product) => (
+              <div
+                key={product.id}
+                onClick={() => navigateToItemPage(product)}
+                style={{ cursor: "pointer" }}
+              >
+                <ProductItem
+                  key={product.id}
+                  title={product.get("title")}
+                  price={product.get("price")}
+                  image={product.get("imgUrl")?.url()}
+                  category={product.get("category")}
+                />
+              </div>
+            ))}
           </div>
-        </section> */}
+        </section>
       </div>
     );
   };

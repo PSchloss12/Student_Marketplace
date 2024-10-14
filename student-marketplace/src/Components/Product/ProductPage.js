@@ -7,6 +7,7 @@ import {
   import ProductItem from "./ProductItem/ProductItem.js";
   import { getAllProducts } from "../../Services/Products.js";
   import './styles.css';
+import ProductDetailsPage from "./ProductDetails/ProductDetailsPage.js";
 
   const ProductPage = () => {
     const [category, setCategory] = useState("dormEssentials");
