@@ -41,6 +41,6 @@ export const getAllUsers = () => {
     return results;
   })
   .catch((error) => {
-    console.log("error getting users: ". error);
+    console.log("error getting users: ", error);
   });
 };

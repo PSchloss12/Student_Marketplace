@@ -56,4 +56,32 @@
     flex-grow: 1;
   }
   
+  @media (max-width: 768px) {
+    .product-card {
+        min-height: 250px; /* Reduce min height on smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
+
+    .product-title {
+        font-size: 1.1em; /* Decrease font size */
+    }
+
+    .product-price {
+        font-size: 1.2em; /* Decrease font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-card {
+        padding: 10px; /* Further reduce padding */
+    }
+
+    .product-title {
+        font-size: 1em; /* Further decrease font size */
+    }
+
+    .product-price {
+        font-size: 1em; /* Further decrease font size */
+    }
+}
   /* End of ProductItem css */

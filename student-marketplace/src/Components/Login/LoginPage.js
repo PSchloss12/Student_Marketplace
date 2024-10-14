@@ -24,13 +24,8 @@
       // TODO: Add login service
       console.log("Login form submitted");
     } else {
-      // Call signup service
-      try {
-        const response = await createUser(username, email, password);
-        console.log("Signup successful:", response);
-      } catch (error) {
-        console.error("Error during signup:", error);
-      }
+      //  sign-up service
+
     }
   };
 

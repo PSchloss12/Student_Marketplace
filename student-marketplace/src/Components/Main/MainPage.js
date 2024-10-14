@@ -6,11 +6,12 @@ import {
   
   import ProductItem from "../Product/ProductItem/ProductItem";
   import { getFavorites } from "../../Services/Products";
-  
+  import './styles.css';
+
   const MainPage = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
-    var currUser = 'dJcfo4qvL2'; // hardcoded user id for now
+    var currUser = "user1"; // hardcoded username for now
   
     useEffect(() => {
       // Fetch the favorites for the current user
@@ -31,9 +32,9 @@ import {
           <h1>Welcome to ND Marketplace</h1>
           <p>The place to shop for all your college needs!</p>
         </header>
-        <section className="main-page-featured-products">
-          <h2>Your Favorite Products</h2>
-          <div className="main-page-product-listings">
+        <section className="featured-products-section">
+          <h2>Featured Products</h2>
+          <div className="product-listings">
             {featuredProducts.map((product) => (
               <div
                 key={product.id}
@@ -41,11 +42,9 @@ import {
                 style={{ cursor: "pointer" }}
               >
                 <ProductItem
-                  key={product.id}
                   title={product.get("title")}
                   price={product.get("price")}
                   image={product.get("imgUrl")?.url()}
-                  category={product.get("category")}
                 />
               </div>
             ))}

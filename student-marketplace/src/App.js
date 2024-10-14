@@ -15,8 +15,8 @@ function App() {
     <div className="App">
       {/* <LoginPage /> */}
       {/* <SellerForm /> */}
-      <MainPage />
-      {/* <ProductPage /> */}
+      {/* <MainPage /> */}
+      <ProductPage />
 
     </div>
   );

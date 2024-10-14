@@ -1,43 +1,99 @@
-/* start of main page css */
+/* Start of Main Page CSS */
+
 .main-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-  }
-  
-  .main-page-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.main-page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-page-header h1 {
+  font-size: 2.5em;
+  color: #333;
+}
+
+.main-page-header p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.featured-products-section {
+  margin: 20px 0;
+}
+
+.featured-products-section h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #333;
+}
+
+.product-listings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* Space between product items */
+  margin-top: 20px;
+}
+
+/* Responsive Grid Layout */
+.product-listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust columns based on available space */
+  gap: 20px; /* Space between product items */
+  margin-top: 20px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
   .main-page-header h1 {
-    font-size: 2.5em;
-    color: #333;
+    font-size: 2.2em; /* Decrease font size on smaller screens */
   }
-  
+
   .main-page-header p {
-    font-size: 1.2em;
-    color: #666;
+    font-size: 1.1em; /* Decrease font size on smaller screens */
   }
-  
-  .main-page-featured-products {
-    margin: 20px 0;
+
+  .featured-products-section h2 {
+    font-size: 1.8em; /* Decrease font size on smaller screens */
   }
-  
-  .main-page-featured-products h2 {
-    text-align: center;
-    font-size: 2em;
-    color: #333;
+}
+
+@media (max-width: 768px) {
+  .main-page-header h1 {
+    font-size: 2em; 
   }
-  
-  .main-page-product-listings {
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(200px, 1fr)
-    ); /* Responsive grid */
-    gap: 20px;
+
+  .main-page-header p {
+    font-size: 1em; 
   }
-  
+
+  .featured-products-section h2 {
+    font-size: 1.5em; 
+  }
+
+  .product-listings {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Change column sizes on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-page-header h1 {
+    font-size: 1.5em;
+  }
+
+  .main-page-header p {
+    font-size: 0.9em; 
+  }
+
+  .featured-products-section h2 {
+    font-size: 1.3em; 
+  }
+}
+
+
+/* End of Main Page CSS */
