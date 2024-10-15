@@ -1,4 +1,5 @@
 // This component will render the navigation bar or header for each page
+import "./styles.css"
 
 const Header = ({ onNavigate }) => {
   return(

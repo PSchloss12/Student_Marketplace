@@ -1,11 +1,11 @@
 // An ProductDetailsPage is a more detailed view of a single selected product
-import {
-  useState,
-} from "react";
+import { useState } from "react";
+import { useParams } from 'react-router-dom';
 
 import './styles.css';
 
   const ProductDetailsPage = ({ product }) => {
+    const { id } = useParams();
     const [isBought, setIsBought] = useState(false);
     const [isWatched, setIsWatched] = useState(false);
     // TODO: ensure uniform img size in db/scale images on the front end
@@ -13,7 +13,7 @@ import './styles.css';
   
     return (
       <div className="item-page">
-        <h1 className="item-title">{product.get("title")}</h1>
+        <h1 className="item-title">{product.get("title")} ({id})</h1>
         {product.get("imgUrl") ? (
           <img className="item-image" src={product.get("imgUrl").url()} alt={product.get("title")} />
         ) : (
