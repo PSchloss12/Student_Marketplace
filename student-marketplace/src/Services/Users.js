@@ -1,6 +1,6 @@
 import Parse from 'parse';
 
-// POST: add user to db (when they signup)
+// POST: add user to db (when they signup) - fix when we do auth?
 export const createUser = (Username, Email, Password) => {
   const User = Parse.Object.extend("User");
   const user = new User();
@@ -12,35 +12,43 @@ export const createUser = (Username, Email, Password) => {
   });
 };
 
-// GET: get a single user (login) - update this when we do auth
-// export function login(email, password) {
-//     if (!email) {
-//       return 0;
-//     }
-//     return axios
-//       .get(DBURL + "users.json")
-//       .then((response) => {
-//         const users = response.data;
-//         if (users[email]["password"] === password) {
-//           return users[email]["id"];
-//         } else {
-//           return 0;
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching favorites:", error);
-//       });
-//   }
+// GET: get a single user (login) - update this when we do auth if needed
+export const getUser = (id) => {
+  if (!id) {
+    console.error("No id provided.");
+    return Promise.reject(new Error("No id provided."));
+  }
+  const query = new Parse.Query(Parse.User);
+  return query.get(id)
+    .then((user) => {
+      console.log("User found:", user);
+      return user;
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error("Error fetching user by id:", error);
+      throw error;
+    });
+};
 
 // GET: every user from db
 export const getAllUsers = () => {
-  const User = Parse.Object.extend("User");
-  const query = new Parse.Query(User);
-  return query.find().then((results) => {
-    console.log("results: ", results);
-    return results;
-  })
-  .catch((error) => {
-    console.log("error getting users: ", error);
-  });
+  const query = new Parse.Query(Parse.User);
+
+  // check query
+  if (!query) {
+    console.error("Parse.Query is undefined or not initialized correctly.");
+    return Promise.resolve([]); // Return empty array if something goes wrong
+  }
+
+  // Now attempt the query
+  return query.find()
+    .then((results) => {
+      console.log("Found users: ", results);
+      return results;
+    })
+    .catch((error) => {
+      console.error("Error querying users: ", error);
+      return [];
+    });
 };

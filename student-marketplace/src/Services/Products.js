@@ -1,5 +1,5 @@
 import Parse from 'parse';
-
+import { getAllUsers } from './Users';
 // GET: all products
 export const getAllProducts = () => {
   const Product = Parse.Object.extend("Product");
@@ -25,7 +25,7 @@ export const getProduct = (id) => {
   });
 };
 
-//Create operation - create product
+//Post operation - create product
 export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl, SellerId) => {
   const Product = Parse.Object.extend("Product");
   const product = new Product();
@@ -45,6 +45,7 @@ export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl
   SellerPointer.id = SellerId;  // Assign the id of the user to the pointer
   product.set("sellerId", SellerPointer);
 
+  // Return the entire product object after saving so that its ID can be used
   return product.save().then((result) => {
     return result;
   });
@@ -60,25 +61,27 @@ export const removeProduct = (id) => {
   });
 };
 
-
-export const getFavorites = (username) => {
-  if (!username) {
-    console.error("No username provided.");
-    return Promise.resolve([]); // Return an empty array if no username is provided
+//GET: get favorites of the user logged in (hardcoded right now)
+export const getFavorites = (id) => {
+  if (!id) {
+    console.error("No id provided.");
+    return Promise.resolve([]); // Return an empty array if no id is provided
   }
-  const query = new Parse.Query(Parse.User); 
-  query.equalTo("username", username); // Exact match for username
 
-  return query.find() // Use find() to get all matching results 
+  // Get all users and find the one with the matching id
+  return getAllUsers()
     .then((users) => {
-      console.log("Users found:", users); // Log the users array
-      if (!users.length) {
+      console.log("All users:", users);
+
+      // Find the user that matches the  id
+      const user = users.find((user) => user.id === id);
+
+      if (!user) {
         console.warn("User not found, fetching all products instead.");
-        return getAllProducts(); // Call getAllProducts if no user is found
+        return getAllProducts(); // Call getAllProducts if no matching user is found
       }
 
-      const user = users[0]; // Get the first user from the results
-
+      // Get the 'favorites' relation for the found user
       const favoritesRelation = user.relation("favorites"); // Ensure 'favorites' relation exists
       if (!favoritesRelation) {
         throw new Error("Favorites relation not found on user.");

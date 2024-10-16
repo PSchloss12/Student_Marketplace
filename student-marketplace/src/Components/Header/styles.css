@@ -23,7 +23,7 @@
 }
 
 .topappbar .title {
-  flex-grow: 1; /*  title takes available space */
+  flex-grow: 1; /* title takes available space */
   text-align: left; /* Align title to the left */
   font-size: 20px;
 }
@@ -52,6 +52,7 @@
 }
 
 .button-52 {
+
   font-size: 16px;
   font-weight: 200;
   letter-spacing: 1px;
@@ -127,10 +128,7 @@
   background: var(--color);
   color: #fff;
 }
+=======
+}  */
 
-@media (min-width: 768px) {
-  .button-52 {
-    padding: 13px 50px 13px;
-  }
-} */
-/* End of header css */
+/* End of header css  */

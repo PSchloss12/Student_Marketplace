@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
   const MainPage = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
-    var currUser = "user1"; // hardcoded username for now
+    var currUser = "dJcfo4qvL2"; // hardcoded id for now
   
     useEffect(() => {
       // check if featuredProducts already exists
