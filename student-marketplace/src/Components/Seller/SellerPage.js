@@ -2,6 +2,7 @@
 import './styles.css';
 import {useState} from "react";
 import {createProduct} from '../../Services/Products';
+import { createTransaction } from '../../Services/Transactions';
 import Parse from 'parse';
 
 const SellerForm = () => {
@@ -80,16 +81,27 @@ const SellerForm = () => {
     const sellerId = "dJcfo4qvL2";
 
     createProduct(priceAsNumber, listingTitle, description, selectedCategories, venmo, imgUrl, sellerId)
-      .then((result) => {
-        // Show success message to indicate that it worked
-        setSuccessMessage("Product created successfully!");
+    .then((product) => {
+      const productId = product.id; // Get the ID of the newly created product
 
-        // Reset form data to initial state
-        setFormData(initialFormData);
-      })
-      .catch((error) => {
-        console.error("Error creating product:", error);
-      });
+      // Now create the transaction
+      createTransaction(sellerId, productId)
+        .then((transaction) => {
+          console.log("Transaction created successfully:", transaction);
+
+          // Show success message
+          setSuccessMessage("Product Listing created successfully!");
+
+          // Reset form data
+          setFormData(initialFormData);
+        })
+        .catch((error) => {
+          console.error("Error creating transaction:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Error creating product:", error);
+    });
   };
 
   return (

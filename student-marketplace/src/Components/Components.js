@@ -13,7 +13,7 @@ export default function Components() {
             <Routes>
                 <Route path="/" element={<MainPage/>} />
                 <Route path="/products" element={<ProductPage/>} />
-                <Route path="/product/:id" component={<ProductDetailsPage/>>} />
+                <Route path="/product/:id" component={<ProductDetailsPage/>} />
                 <Route path="/seller" element={<SellerPage/>} />
                 <Route path="/login" element={<LoginPage/>} />
             </Routes>

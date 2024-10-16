@@ -45,6 +45,7 @@ export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl
   SellerPointer.id = SellerId;  // Assign the id of the user to the pointer
   product.set("sellerId", SellerPointer);
 
+  // Return the entire product object after saving so that its ID can be used
   return product.save().then((result) => {
     return result;
   });
