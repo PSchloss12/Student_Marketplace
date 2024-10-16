@@ -2,7 +2,7 @@
 import "./styles.css";
 import {Link} from "react-router-dom";
 
-const Header = ({ onNavigate }) => {
+const Header = () => {
   return(
     <div className="topappbar">
       <div className="title">ND Marketplace</div>
