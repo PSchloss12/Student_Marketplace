@@ -1,28 +1,39 @@
 // An ProductDetailsPage is a more detailed view of a single selected product
 import { useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import './styles.css';
 
-  const ProductDetailsPage = ({ product }) => {
+  const ProductDetailsPage = () => {
+    const location = useLocation();
+    console.log(`state ${JSON.stringify(location.state, null, 4)}`)
+    const product = location.state || {}; 
     const { id } = useParams();
     const [isBought, setIsBought] = useState(false);
     const [isWatched, setIsWatched] = useState(false);
     // TODO: ensure uniform img size in db/scale images on the front end
     // TODO: add functionality to handle purchasing
+    if (!product){
+      console.error("Product could not be found: ", product);
+      return (
+        <div className="item-page">
+          <h1 className="item-title">Product Not Found</h1>
+        </div>
+      );
+    }
   
     return (
       <div className="item-page">
-        <h1 className="item-title">{product.get("title")} ({id})</h1>
-        {product.get("imgUrl") ? (
-          <img className="item-image" src={product.get("imgUrl").url()} alt={product.get("title")} />
+        <h1 className="item-title">{product["title"]} ({id})</h1>
+        {product["imgUrl"] ? (
+          <img className="item-image" src={product["imgUrl"].url()} alt={product["title"]} />
         ) : (
           <div className="no-image">No Image Available</div>
         )}
-        <div className="item-price">Price: ${product.get("price")}</div>
-        <div className="item-description">{product.get("description")}</div>
+        <div className="item-price">Price: ${product["price"]}</div>
+        <div className="item-description">{product["description"]}</div>
         <div className="item-venmo">
-          <strong>Seller's Venmo:</strong> {product.get("venmo")}
+          <strong>Seller's Venmo:</strong> {"Example_venmo"}
         </div>
         {isBought && <div className="bought-message">Item marked as bought!</div>}
         <div className="instruction">To purchase, please Venmo the seller.</div>

@@ -48,6 +48,11 @@
   margin-top: 20px;
 }
 
+.listing {
+  text-decoration: none; /* Remove underline */
+  color: inherit;
+}
+
 /* Media Queries for Responsive Design */
 @media (max-width: 1200px) {
   .main-page-header h1 {
