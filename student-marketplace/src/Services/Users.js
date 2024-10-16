@@ -15,7 +15,7 @@ export const createUser = (Username, Email, Password, Venmo) => {
   });
 };
 
-// GET: get a single user (login) - update this when we do auth if needed
+// GET: get a single user (login)
 export const getUser = (id) => {
   if (!id) {
     console.error("No id provided.");
