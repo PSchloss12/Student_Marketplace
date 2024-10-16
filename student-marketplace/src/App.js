@@ -7,7 +7,11 @@ Parse.initialize(ENV.APPLICATION_ID, ENV.JAVASCRIPT_KEY);
 Parse.serverURL = ENV.SERVER_URL;
 
 function App() {
-  return <Components />;
+  return (
+    <div className="app-container">
+      <Components/>
+    </div>
+  );
 }
 
 export default App;

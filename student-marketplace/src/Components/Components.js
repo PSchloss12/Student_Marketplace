@@ -8,12 +8,12 @@ import ProductDetailsPage from './Product/ProductDetails/ProductDetailsPage.js';
 
 export default function Components() {
     return (
-        <Router>
+        <Router style="background-color: #8CBA80">
             <Header/>
             <Routes>
                 <Route path="/" element={<MainPage/>} />
                 <Route path="/products" element={<ProductPage/>} />
-                <Route path="/product/:id" component={<ProductDetailsPage/>>} />
+                <Route path="/product/:id" element={<ProductDetailsPage/>} />
                 <Route path="/seller" element={<SellerPage/>} />
                 <Route path="/login" element={<LoginPage/>} />
             </Routes>

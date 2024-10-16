@@ -1,34 +1,30 @@
 // ProductPage will display products for users to browse
-import {
-    useState,
-    useEffect,
-  } from "react";
-  
-  import ProductItem from "./ProductItem/ProductItem.js";
-  import { getAllProducts } from "../../Services/Products.js";
-  import './styles.css';
-import ProductDetailsPage from "./ProductDetails/ProductDetailsPage.js";
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import ProductItem from "./ProductItem/ProductItem.js";
+import { getAllProducts } from "../../Services/Products.js";
+import './styles.css';
 
-  const ProductPage = () => {
-    const [category, setCategory] = useState("dormEssentials");
-    const [priceLimit, setPriceLimit] = useState("");
-    const [products, setProducts] = useState([]);
+const ProductPage = () => {
+  const [category, setCategory] = useState("dormEssentials");
+  const [priceLimit, setPriceLimit] = useState("");
+  const [products, setProducts] = useState([]);
   
   // Fetch all products
   useEffect(() => {
-    getAllProducts().then((data) => {
-      setProducts(data);
-    });
+    if (products?.length>0) {
+      setProducts(products)
+    } else {
+      getAllProducts().then((data) => {
+        setProducts(data);
+      });
+    }
   }, []);
   
     const handleFilter = () => {
       console.log("Selected Category:", category);
       console.log("Price Limit:", priceLimit);
       // TODO: add filtering logic
-    };
-    const navigateToItemPage = (product) => {
-      // Set the current view to the ItemPage and pass the selected product - 
-      // add routing to productdetailspage
     };
   
     return (
@@ -65,9 +61,21 @@ import ProductDetailsPage from "./ProductDetails/ProductDetailsPage.js";
         <hr />
         <div className="product-listings">
           {products.map((product) => (
+            <Link
+            key={product.id}
+            to="/product/1"
+            state={ {
+              "category" : product.get("category"),
+              "description" : product.get("description"),
+              "isAvailable" : product.get("isAvailable"),
+              "price" : product.get("price"),
+              "sellerId" : product.get("sellerId"),
+              "title" : product.get("title"),
+              "imgUrl" : product.get("imgUrl"),
+            } }
+            className="listing"
+          >
             <div
-              key={product.id}
-              onClick={() => navigateToItemPage(product)}
               style={{ cursor: "pointer" }}
             >
               <ProductItem
@@ -76,10 +84,11 @@ import ProductDetailsPage from "./ProductDetails/ProductDetailsPage.js";
                 image={product.get("imgUrl")?.url()}
               />
             </div>
+          </Link>
           ))}
         </div>
       </div>
     );
-  };
-  export default ProductPage;
+};
+ export default ProductPage;
   

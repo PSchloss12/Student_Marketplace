@@ -1,8 +1,6 @@
 // This will be a landing page for users that will be customized if a user is logged in
-import {
-    useState,
-    useEffect,
-  } from "react";
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
   
   import ProductItem from "../Product/ProductItem/ProductItem";
   import { getFavorites } from "../../Services/Products";
@@ -14,18 +12,16 @@ import {
     var currUser = "user1"; // hardcoded username for now
   
     useEffect(() => {
-      // Fetch the favorites for the current user
-      getFavorites(currUser).then((data) => {
+      // check if featuredProducts already exists
+      if (featuredProducts?.length>0) {
+        setFeaturedProducts(featuredProducts)
+      } else {
+        // Fetch the favorites for the current user
+        getFavorites(currUser).then((data) => {
         setFeaturedProducts(data);
-      });
+        });
+    }
     }, [currUser]); // Add currUser as a dependency so it reruns if the user changes
-  
-    const navigateToItemPage = (product) => {
-      // Handles navigation to the item page when clicked
-      // TODO: Implement navigation logic here
-      console.log("Navigate to product:", product);
-    };
-  
     return (
       <div className="main-page">
         <header className="main-page-header">
@@ -36,17 +32,30 @@ import {
           <h2>Featured Products</h2>
           <div className="product-listings">
             {featuredProducts.map((product) => (
-              <div
+              <Link
                 key={product.id}
-                onClick={() => navigateToItemPage(product)}
-                style={{ cursor: "pointer" }}
+                to="/product/1"
+                state={ {
+                  "category" : product.get("category"),
+                  "description" : product.get("description"),
+                  "isAvailable" : product.get("isAvailable"),
+                  "price" : product.get("price"),
+                  "sellerId" : product.get("sellerId"),
+                  "title" : product.get("title"),
+                  "imgUrl" : product.get("imgUrl"),
+                } }
+                className="listing"
               >
-                <ProductItem
-                  title={product.get("title")}
-                  price={product.get("price")}
-                  image={product.get("imgUrl")?.url()}
-                />
-              </div>
+                <div
+                  style={{ cursor: "pointer" }}
+                >
+                  <ProductItem
+                    title={product.get("title")}
+                    price={product.get("price")}
+                    image={product.get("imgUrl")?.url()}
+                  />
+                </div>
+              </Link>
             ))}
           </div>
         </section>
