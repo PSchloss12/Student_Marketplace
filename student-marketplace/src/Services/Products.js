@@ -26,7 +26,7 @@ export const getProduct = (id) => {
 };
 
 //Post operation - create product
-export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl, SellerId) => {
+export const createProduct = (Price, Title, Description, Category, ImgUrl, SellerId) => {
   const Product = Parse.Object.extend("Product");
   const product = new Product();
   product.set("price", Price);
@@ -35,7 +35,6 @@ export const createProduct = (Price, Title, Description, Category, Venmo, ImgUrl
     product.set("description", Description);
   }
   product.set("category", Category);
-  product.set("venmo", Venmo);
 
   if (ImgUrl) {
     product.set("imgUrl", ImgUrl);

@@ -1,12 +1,15 @@
 import Parse from 'parse';
 
 // POST: add user to db (when they signup) - fix when we do auth?
-export const createUser = (Username, Email, Password) => {
+export const createUser = (Username, Email, Password, Venmo) => {
   const User = Parse.Object.extend("User");
   const user = new User();
   user.set("email", Email);
   user.set("password", Password);
   user.set("username", Username)
+  if (Venmo) {
+    user.set("sellerVenmo", Venmo);
+  }
   return user.save().then((result) => {
     return result;
   });
@@ -51,4 +54,21 @@ export const getAllUsers = () => {
       console.error("Error querying users: ", error);
       return [];
     });
+};
+
+// UPDATE: update a user
+export const updateUser = async (user, venmo) => {
+  if (!user) {
+    console.error("No user provided.");
+    return Promise.reject(new Error("No user provided."));
+  }
+  user.set("sellerVenmo", venmo); // Set the sellerVenmo field with the Venmo value
+  try {
+    const updatedUser = await user.save();
+    console.log("User updated successfully:", updatedUser);
+    return updatedUser;
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
 };

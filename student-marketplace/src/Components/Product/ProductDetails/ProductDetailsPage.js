@@ -13,6 +13,8 @@ import './styles.css';
     const [isWatched, setIsWatched] = useState(false);
     // TODO: ensure uniform img size in db/scale images on the front end
     // TODO: add functionality to handle purchasing
+    // TODO: implement functionality to get the seller's venmo by using getProduct by the product id, then getUser with sellerId
+      // and then getting the sellerVenmo attribute - hardcoded for now
     if (!product){
       console.error("Product could not be found: ", product);
       return (
