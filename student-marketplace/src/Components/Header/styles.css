@@ -11,7 +11,7 @@
 }
 
 .topappbar .title {
-  flex-grow: 1; /*  title takes available space */
+  flex-grow: 1; /* title takes available space */
   text-align: left; /* Align title to the left */
   font-size: 20px;
 }
@@ -26,20 +26,21 @@
   gap: 10px; /* Space between buttons */
 }
 
-.topappbar button {
-  background: white;
-  border: 1px solid black;
-  color: black;
-  padding: 5px 10px; /* Padding for buttons */
-  cursor: pointer;
+.topappbar .button { 
+  background: white; 
+  border: 1px solid black; 
+  color: black; 
+  padding: 5px 10px; 
+  cursor: pointer; /* Pointer on hover */
   border-radius: 4px; /* Rounded corners */
+  text-decoration: none; /* Remove underline from links */
+  display: inline-block; 
 }
 
-.topappbar button:hover {
-  background-color: #6995b9; /* Darker shade on hover */
+.topappbar .button:hover { /* Hover effect for buttons */
+  background-color: #6995b9; 
   color: black; /* Text color on hover */
 }
-
 /* .button-52 {
   font-size: 16px;
   font-weight: 200;
@@ -72,54 +73,6 @@
 .button-52:hover:after {
   top: 0px;
   left: 0px;
-} */
-/* 
-<!-- HTML !-->
-<button class="button-89" role="button">Button 89</button> */
+}  */
 
-/* CSS */
-/* .button-89 {
-  --b: 3px; 
-  --s: 0.45em;  */
-/* --color: #373b44;
-
-  padding: calc(0.5em + var(--s)) calc(0.9em + var(--s));
-  color: var(--color);
-  --_p: var(--s);
-  background: conic-gradient(
-      from 90deg at var(--b) var(--b),
-      #0000 90deg,
-      var(--color) 0
-    )
-    var(--_p) var(--_p) / calc(100% - var(--b) - 2 * var(--_p))
-    calc(100% - var(--b) - 2 * var(--_p));
-  transition: 0.3s linear, color 0s, background-color 0s;
-  outline: var(--b) solid #0000;
-  outline-offset: 0.6em;
-  font-size: 16px;
-
-  border: 0;
-
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-89:hover,
-.button-89:focus-visible {
-  --_p: 0px;
-  outline-color: var(--color);
-  outline-offset: 0.05em;
-}
-
-.button-89:active {
-  background: var(--color);
-  color: #fff;
-}
-
-@media (min-width: 768px) {
-  .button-52 {
-    padding: 13px 50px 13px;
-  }
-} */
-/* End of header css */
+/* End of header css  */

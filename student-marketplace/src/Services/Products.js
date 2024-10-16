@@ -73,7 +73,7 @@ export const getFavorites = (id) => {
     .then((users) => {
       console.log("All users:", users);
 
-      // Find the user that matches the given id
+      // Find the user that matches the  id
       const user = users.find((user) => user.id === id);
 
       if (!user) {

@@ -1,41 +1,23 @@
-// This component will render the navigation bar or header for each page
-import "./styles.css"
+import { Link } from "react-router-dom";
+import "./styles.css";
 
-const Header = ({ onNavigate }) => {
-  return(
-    <div class="topappbar">
-      <div class="title">ND Marketplace</div>
-      <div class="navigation">
-        <button
-          class="button-52"
-          role="button"
-          onClick={() => onNavigate("mainPage")}
-        >
+const Header = () => {
+  return (
+    <div className="topappbar">
+      <div className="title">ND Marketplace</div>
+      <div className="navigation">
+        <Link to="/" className="button" role="button">
           Homepage
-        </button>
-        <button
-          class="button-52"
-          role="button"
-          onClick={() => onNavigate("productPage")}
-        >
+        </Link>
+        <Link to="/products" className="button" role="button">
           View Products
-        </button>
-        <button
-          class="button-52"
-          role="button"
-          onClick={() => onNavigate("sellerForm")}
-        >
+        </Link>
+        <Link to="/seller" className="button" role="button">
           List Item
-        </button>
-        <button
-          class="button-52"
-          role="button"
-          onClick={() => {
-            onNavigate("login");
-          }}
-        >
+        </Link>
+        <Link to="/login" className="button" role="button">
           Login
-        </button>
+        </Link>
       </div>
     </div>
   );

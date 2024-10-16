@@ -11,7 +11,7 @@ import {
   const MainPage = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
-    var currUser = "user1"; // hardcoded username for now
+    var currUser = "dJcfo4qvL2"; // hardcoded id for now
   
     useEffect(() => {
       // Fetch the favorites for the current user
