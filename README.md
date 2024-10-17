@@ -5,3 +5,4 @@ selling tickets, books and supplies, dorm essentials, and more!
 
 ## App Organization
 ![Tree Diagram](./images/tree_diagram.png)
+![UML Diagram](./images/UML.png)
