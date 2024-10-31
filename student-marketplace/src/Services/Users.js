@@ -72,3 +72,9 @@ export const updateUser = async (user, venmo) => {
     throw error;
   }
 };
+
+// function to return if user is authenticated
+export const userAuthenticated = () => {
+  const currentUser = Parse.User.current();
+  return currentUser ? currentUser.authenticated() : false;
+};
