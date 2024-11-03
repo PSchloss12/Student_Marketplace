@@ -6,6 +6,8 @@ import LoginPage from './Login/LoginPage.js';
 import Header from './Header/Header.js';
 import ProductDetailsPage from './Product/ProductDetails/ProductDetailsPage.js';
 import ProtectedRoute from '../Services/ProtectedRoute.js';
+import { Navigate } from 'react-router-dom';
+
 
 // added protected routes to productdetailpage and sellerpage
 export default function Components() {
@@ -18,6 +20,8 @@ export default function Components() {
                 <Route path="/product/:id" element={<ProtectedRoute element={ProductDetailsPage} />} /> 
                 <Route path="/seller" element={<ProtectedRoute element={SellerPage} />} />
                 <Route path="/login" element={<LoginPage/>} />
+                <Route path="*" element={<Navigate to="/login" replace />} /> 
+
             </Routes>
         </Router>
     );
