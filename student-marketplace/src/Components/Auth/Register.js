@@ -13,11 +13,11 @@ const Register = () => {
   });
   
   // flags in the state to watch for add/remove updates
-  const [isChanged, setIsChanged] = useState(false);
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
 
   // register changes
   useEffect(() => {
-    if (newUser && isChanged) {
+    if (newUser && readyToSubmit) {
       createUser(newUser).then((userCreated) => {
         if (userCreated) {
           alert(
@@ -25,10 +25,10 @@ const Register = () => {
           );
           navigate("/");
         }
-        setIsChanged(false);
+        setReadyToSubmit(false);
       });
     }
-  }, [navigate, newUser, isChanged]);
+  }, [navigate, newUser, readyToSubmit]);
 
   const onChangeHandler = (e) => {
     e.preventDefault();
@@ -37,13 +37,11 @@ const Register = () => {
       ...newUser,
       [name]: newValue
     });
-    console.log(newUser)
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("Register submitted: ", e.target);
-    setIsChanged(true);
+    setReadyToSubmit(true);
   };
   
   return (

@@ -12,14 +12,12 @@ const Login = () => {
     password: ""
   });
 
-  // flags in the state to watch for isChanged/remove updates
-  const [isChanged, setIsChanged] = useState(false);
-
-  console.log('inLogin')
+  // flags in the state to watch for readyToSubmit/remove updates
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
 
   // useEffect that run when changes are made to the state variable flags
   useEffect(() => {
-    if (currentUser && isChanged) {
+    if (currentUser && readyToSubmit) {
       loginUser(currentUser).then((userLoggedIn) => {
         if (userLoggedIn) {
           alert(
@@ -27,10 +25,10 @@ const Login = () => {
           );
           navigate("/");
         }
-        setIsChanged(false);
+        setReadyToSubmit(false);
       });
     }
-  }, [navigate, currentUser, isChanged]);
+  }, [navigate, currentUser, readyToSubmit]);
 
   const onChangeHandler = (e) => {
     e.preventDefault();
@@ -43,8 +41,7 @@ const Login = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("Login submitted: ", e.target);
-    setIsChanged(true);
+    setReadyToSubmit(true);
   };
 
   return (

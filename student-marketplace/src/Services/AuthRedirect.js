@@ -6,9 +6,10 @@ import { userAuthenticated } from './Users';
 const AuthRedirect = ({ element: Component, ...rest }) => {
     const isAuthenticated = userAuthenticated();
 
-    // if (isAuthenticated) {
-    //     return <Navigate to="/" replace />;
-    // }
+    if (isAuthenticated) {
+        alert('You are already logged in!')
+        return <Navigate to="/" replace />;
+    }
 
     return <Component {...rest} />;
 };
