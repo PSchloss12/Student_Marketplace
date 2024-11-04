@@ -1,4 +1,4 @@
-const LoginForm = ({isLogin, username, setUsername, email, setEmail, password,setPassword, handleSubmit}) => {
+const LoginForm = ({username, setUsername, email, setEmail, password,setPassword, handleSubmit}) => {
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <label className="login-form-label" htmlFor="username">
@@ -37,22 +37,8 @@ const LoginForm = ({isLogin, username, setUsername, email, setEmail, password,se
         required
       />
 
-      {!isLogin && (
-        <>
-          <label className="login-form-label" htmlFor="confirm-password">
-            Retype Password:
-          </label>
-          <input
-            className="login-form-input"
-            type="password"
-            id="confirm-password"
-            required
-          />
-        </>
-      )}
-
       <button className="login-form-button" type="submit">
-        {isLogin ? "Login" : "Sign Up"}
+        Login
       </button>
     </form>
   );
