@@ -1,9 +1,9 @@
 // This page will handle logins and signups
   import react, {useState,useEffect} from "react";
   import { useLocation, useNavigate } from "react-router-dom";
-  import LoginForm from "./Login/Login.js";
-  import RegisterForm from "./Register/Register.js";
-  import { isLoggedIn } from "./AuthService";
+  import Login from "./Login.js";
+  import Register from "./Register.js";
+  import { isLoggedIn, logoutUser } from "./AuthService";
   import './styles.css';
 
   const AuthPage = () => {
@@ -18,16 +18,22 @@
       if (isLoggedIn()) {
         alert("You are already logged in");
         navigate("/");
-      }
+        // return (
+        //   <div className="login-page">
+        //   <div className="login-container">
+        //     <h1>You are already logged in!</h1>
+        //     <button onClick={navigate("/")}>Home</button>
+        //     <button onClick={logoutUser()}>Logout</button>
+        //   </div>
+        //   </div>
+        // )
+      };
+      console.log('not logged in')
     }, [navigate]);
   
     // Get unauthorized message 
     const location = useLocation();
     const message = location.state?.message;
-
-    const handleSubmit = () => {
-
-    };
 
     const toggleForm = () => {
       setIsLogin(!isLogin);
@@ -38,15 +44,7 @@
         <div className="login-page">
         <div className="login-container">
           <h1 className="login-title">{isLogin ? "Login" : "Sign Up"}</h1>
-          <LoginForm
-            username={username}
-            setUsername={setUsername}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            handleSubmit={handleSubmit}
-          />
+          <Login />
           <p className="login-toggle-text">
             {isLogin ? "Don't have an account?" : "Already have an account?"}
             <a className="login-toggle-link" href="#" onClick={toggleForm}>
@@ -61,19 +59,11 @@
       <div className="login-page">
         <div className="login-container">
           <h1 className="login-title">{isLogin ? "Login" : "Sign Up"}</h1>
-          
+
           {/* Display the unauthorized access message if present */}
           {message && <p className="error-message">{message}</p>}
                     
-          <RegisterForm
-            username={username}
-            setUsername={setUsername}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            handleSubmit={handleSubmit}
-          />
+          <Register />
           
           <p className="login-toggle-text">
             {isLogin ? "Don't have an account?" : "Already have an account?"}

@@ -4,7 +4,7 @@ import Parse from "parse";
 export const createUser = (newUser) => {
   const user = new Parse.User();
 
-  user.set("username", newUser.email);
+  user.set("username", newUser.username);
   user.set("email", newUser.email);
   user.set("password", newUser.password);
 
@@ -23,8 +23,8 @@ export const createUser = (newUser) => {
 export const loginUser = (currUser) => {
   const user = new Parse.User();
 
-  user.set("password", currUser.password);
   user.set("username", currUser.email);
+  user.set("password", currUser.password);
 
   console.log("User: ", user);
   console.log();
@@ -40,4 +40,13 @@ export const loginUser = (currUser) => {
 
 export const isLoggedIn = () => {
   return Parse.User.current()?.authenticated;
+};
+
+export const logoutUser = async () => {
+  try { 
+    await Parse.User.logOut();
+    console.log('User logged out successfully.'); // Redirect or update state to reflect the logout
+    } catch (error) {
+      console.error('Error logging out: ', error);    
+    }
 };

@@ -1,15 +1,15 @@
 // This will be a landing page for users that will be customized if a user is logged in
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-  
-  import ProductItem from "../Product/ProductItem/ProductItem";
-  import { getFavorites } from "../../Services/Products";
-  import './styles.css';
+import Parse from "parse";
+import ProductItem from "../Product/ProductItem/ProductItem";
+import { getFavorites } from "../../Services/Products";
+import './styles.css';
 
   const MainPage = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
-    var currUser = "dJcfo4qvL2"; // hardcoded id for now
+    var currUser = Parse.User.current(); // hardcoded id for now
   
     useEffect(() => {
       // check if featuredProducts already exists
@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
         setFeaturedProducts(featuredProducts)
       } else {
         // Fetch the favorites for the current user
-        getFavorites(currUser).then((data) => {
+        getFavorites(currUser?.id).then((data) => {
         setFeaturedProducts(data);
         });
     }

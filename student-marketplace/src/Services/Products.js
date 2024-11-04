@@ -8,7 +8,6 @@ export const getAllProducts = () => {
   return query
     .find()
     .then((results) => {
-      console.log("results: ", results);
       return results;
     })
     .catch((error) => {
@@ -70,8 +69,6 @@ export const getFavorites = (id) => {
   // Get all users and find the one with the matching id
   return getAllUsers()
     .then((users) => {
-      console.log("All users:", users);
-
       // Find the user that matches the  id
       const user = users.find((user) => user.id === id);
 
@@ -92,9 +89,9 @@ export const getFavorites = (id) => {
     })
     .then((favoriteProducts) => {
       if (!favoriteProducts.length) {
-        console.warn("No favorite products found for this user.");
+        console.warn("No favorite products found for this user. Returning all products.");
+        return getAllProducts();
       }
-      console.log("Favorite products:", favoriteProducts);
       return favoriteProducts;
     })
     .catch((error) => {

@@ -47,7 +47,6 @@ export const getAllUsers = () => {
   // Now attempt the query
   return query.find()
     .then((results) => {
-      console.log("Found users: ", results);
       return results;
     })
     .catch((error) => {

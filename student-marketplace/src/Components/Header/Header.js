@@ -31,7 +31,7 @@ const Header = () => {
             List Item
           </button>
         </Link>
-        <Link to="/login">
+        <Link to="/auth">
           <button
             className="button-52"
             role="button"
