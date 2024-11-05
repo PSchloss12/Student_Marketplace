@@ -56,7 +56,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
                     : <></>
              }
             <button className="login-form-button" type="submit">
-            Sign Up
+            {isLogin ? "Login" : "Signup"}
             </button>
         </form>
     );
