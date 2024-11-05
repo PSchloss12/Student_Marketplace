@@ -19,3 +19,17 @@ All notable changes to this project will be documented in this file.
 - Updated preact syntax to react syntax accross all pages
 ### Fixed
 - Fixed the filtering logic on the products page
+
+## [0.3.0] - 2024-11-5
+   
+### Added
+- Login Page for Authentication
+- Sign-up Page for Authentication
+- Authorization Services
+- Protected Routes
+### Changed
+- Main only shows products if logged in
+- Can't access product detail page or seller form routes if not logged in
+### Fixed
+- fixed the authorization services
+- fixed user errors and print statements
