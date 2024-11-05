@@ -62,7 +62,6 @@ export const removeProduct = (id) => {
 //GET: get favorites of the user logged in (hardcoded right now)
 export const getFavorites = (id) => {
   if (!id) {
-    console.error("No id provided.");
     return Promise.resolve([]); // Return an empty array if no id is provided
   }
 
