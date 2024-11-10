@@ -14,8 +14,9 @@ import AuthRedirect from '../Services/AuthRedirect.js';
 // added protected routes to productdetailpage and sellerpage
 export default function Components() {
     return (
-        <Router style="background-color: #8CBA80">
+        <Router style="background-color: #8CBA80;">
             <Header/>
+            <br/>
             <Routes>
                 <Route path="/" element={<MainPage/>} />
                 <Route path="/products" element={<ProductPage/>} />
@@ -24,6 +25,7 @@ export default function Components() {
                 <Route path="/auth" element={<AuthRedirect element={AuthPage} />} />
                 <Route path="*" element={<Navigate to="/auth" replace />} /> 
             </Routes>
+            <br/>
         </Router>
     );
 }

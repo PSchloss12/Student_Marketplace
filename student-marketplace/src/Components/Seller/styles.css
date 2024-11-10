@@ -2,8 +2,10 @@
 
 .page {
   width: calc(100% - 80px);
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 20px auto; /* Centering the page with margin */
+  margin-top: 0px;
+  margin-bottom: 0px;
   padding: 20px; /* Padding inside the page */
   border: 1px solid #ccc;
   border-radius: 8px;
