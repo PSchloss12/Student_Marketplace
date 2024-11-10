@@ -3,8 +3,7 @@ import './styles.css';
 import {useState} from "react";
 import {createProduct} from '../../Services/Products';
 import { createTransaction } from '../../Services/Transactions';
-// import {getUser} from '../../Services/Users';
-// import { updateUser } from '../../Services/Users';
+import { updateUser } from '../../Services/Users';
 import Parse from 'parse';
 
 const SellerForm = () => {
@@ -24,7 +23,7 @@ const SellerForm = () => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [successMessage, setSuccessMessage] = useState(''); // message to tell the user that the form submitted
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -49,93 +48,28 @@ const SellerForm = () => {
     }
   };
 
-  // the Code below is set up to update the seller's sellerVenmo attribute in the db but it will not work until Auth is implemented
-  // to avoid errors, it is commented out for now
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  
-  //   const { listingTitle, price, description, categories, venmo, picture } = formData;
-  
-  //   // Change categories to string to match the database
-  //   const selectedCategories = Object.keys(categories)
-  //     .filter((category) => categories[category])
-  //     .join(", ");
-  
-  //   // Convert price to Number because database expects it as number
-  //   const priceAsNumber = parseFloat(price);
-  
-  //   if (isNaN(priceAsNumber)) {
-  //     console.error("Invalid price. Please enter a valid number for the price.");
-  //     return;
-  //   }
-  
-  //   let imgUrl = null;
-  //   if (picture) {
-  //     const parseFile = new Parse.File(picture.name, picture);
-  //     await parseFile.save()
-  //       .then(() => {
-  //         imgUrl = parseFile.url();
-  //       })
-  //       .catch((error) => {
-  //         console.error("Image upload failed:", error);
-  //       });
-  //   }
-  
-  //   // TODO: Hardcoded for now - need to get current user id in future
-  //   const sellerId = "dJcfo4qvL2";
-  
-  //   // Fetch the current user by sellerId
-  //   getUser(sellerId)
-  //     .then(async (user) => {
-  //       // Update the user's Venmo information
-  //       await updateUser(user, venmo);
-  
-  //       createProduct(priceAsNumber, listingTitle, description, selectedCategories, imgUrl, sellerId)
-  //         .then((product) => {
-  //           const productId = product.id; // Get the ID of the newly created product
-  
-  //           // create the transaction
-  //           createTransaction(sellerId, productId)
-  //             .then((transaction) => {
-  //               console.log("Transaction created successfully:", transaction);
-  //               // Show success message
-  //               setSuccessMessage("Product Listing created successfully!");
-  //               // Reset form data
-  //               setFormData(initialFormData);
-  //             })
-  //             .catch((error) => {
-  //               console.error("Error creating transaction:", error);
-  //             });
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error creating product:", error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching user:", error);
-  //     });
-  // };
-
-  // the below code will be removed when auth is implemented and we are able to use the above code
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const { listingTitle, price, description, categories, picture } = formData;  // Removed venmo
-  
-    // Change categories to string to match the database
+
+    const { listingTitle, price, description, categories, picture, venmo } = formData;
+    const currentUser = Parse.User.current();
+
+    if (!currentUser) {
+      console.error("User is not authenticated");
+      return;
+    }
+
     const selectedCategories = Object.keys(categories)
       .filter((category) => categories[category])
       .join(", ");
-  
-    // Convert price to Number because database expects it as a number
+
     const priceAsNumber = parseFloat(price);
-  
+
     if (isNaN(priceAsNumber)) {
       console.error("Invalid price. Please enter a valid number for the price.");
       return;
     }
-  
+
     let imgUrl = null;
     if (picture) {
       const parseFile = new Parse.File(picture.name, picture);
@@ -147,24 +81,26 @@ const SellerForm = () => {
           console.error("Image upload failed:", error);
         });
     }
-  
-    // TODO: Hardcoded for now - need to get current user id in future
-    const sellerId = "dJcfo4qvL2";
-  
+
+    const sellerId = currentUser.id;
+
     createProduct(priceAsNumber, listingTitle, description, selectedCategories, imgUrl, sellerId)
       .then((product) => {
-        const productId = product.id; // Get the ID of the newly created product
-  
-        // Create the transaction
+        const productId = product.id;
+
         createTransaction(sellerId, productId)
           .then((transaction) => {
             console.log("Transaction created successfully:", transaction);
-  
-            // Show success message
-            setSuccessMessage("Product Listing created successfully!");
-  
-            // Reset form data
-            setFormData(initialFormData);
+
+            updateUser(sellerId, venmo)
+              .then(() => {
+                setSuccessMessage("Product Listing created successfully!");
+
+                setFormData(initialFormData);
+              })
+              .catch((error) => {
+                console.error("Error updating user Venmo:", error);
+              });
           })
           .catch((error) => {
             console.error("Error creating transaction:", error);
@@ -174,6 +110,7 @@ const SellerForm = () => {
         console.error("Error creating product:", error);
       });
   };
+
   return (
     <div className="page">
       <div className="container">
@@ -208,7 +145,7 @@ const SellerForm = () => {
           ))}
         </fieldset>
         <label>
-          Picture of Item (If Applicable) - Note: will not work until we implement auth!:
+          Picture of Item (If Applicable):
           <input type="file" name="picture" accept="image/*" onChange={handleChange} />
         </label>
         <label>

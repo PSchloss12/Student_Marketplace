@@ -56,18 +56,18 @@ export const getAllUsers = () => {
 };
 
 // UPDATE: update a user
-export const updateUser = async (user, venmo) => {
-  if (!user) {
-    console.error("No user provided.");
-    return Promise.reject(new Error("No user provided."));
-  }
-  user.set("sellerVenmo", venmo); // Set the sellerVenmo field with the Venmo value
+export const updateUser = async (userId, venmoUsername) => {
   try {
-    const updatedUser = await user.save();
-    console.log("User updated successfully:", updatedUser);
-    return updatedUser;
+    const userQuery = new Parse.Query(Parse.User);
+    const user = await userQuery.get(userId);
+
+    user.set("sellerVenmo", venmoUsername);
+    await user.save();
+
+    console.log("User Venmo updated successfully");
+    return user;
   } catch (error) {
-    console.error("Error updating user:", error);
+    console.error("Failed to update user Venmo:", error);
     throw error;
   }
 };
@@ -76,4 +76,17 @@ export const updateUser = async (user, venmo) => {
 export const userAuthenticated = () => {
   const currentUser = Parse.User.current();
   return currentUser ? currentUser.authenticated() : false;
+};
+
+export const getSellerVenmo = async (sellerId) => {
+  try {
+    const userQuery = new Parse.Query(Parse.User);
+    const user = await userQuery.get(sellerId.id);  
+    const sellerVenmo = user.get("sellerVenmo") || "Venmo username not available";
+    return sellerVenmo;
+
+  } catch (error) {
+    console.error("Failed to retrieve seller's Venmo:", error);
+    throw error;
+  }
 };
