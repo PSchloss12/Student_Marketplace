@@ -31,6 +31,14 @@ const Header = () => {
             List Item
           </button>
         </Link>
+        <Link to="/listings">
+          <button
+            className="button-52"
+            role="button"
+          >
+            Your Listings
+          </button>
+        </Link>
         <Link to="/auth">
           <button
             className="button-52"

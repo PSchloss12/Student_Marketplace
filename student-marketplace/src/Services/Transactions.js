@@ -50,3 +50,21 @@ export const getTransaction = (id) => {
       console.error("Error creating transaction:", error);
     });
   };
+
+  // get all transactions where the current user is the seller
+  export const getUserTransactions = () => {
+    const currentUser = Parse.User.current();
+    if (!currentUser) return Promise.resolve([]);
+  
+    const Transaction = Parse.Object.extend("Transaction");
+    const query = new Parse.Query(Transaction);
+    query.equalTo("sellerId", currentUser);
+    query.include("productId");
+  
+    return query.find()
+      .then((transactions) => transactions)
+      .catch((error) => {
+        console.error("Error fetching transactions:", error);
+        return [];
+      });
+  };

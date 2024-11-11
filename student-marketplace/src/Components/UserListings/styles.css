@@ -1,0 +1,41 @@
+.user-listings {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .user-listings h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .listings-section {
+    margin-top: 30px;
+  }
+  
+  .listings-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  
+  .listing-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .listing-item:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .listing-item h3 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .listing-item p {
+    margin: 5px 0;
+  }

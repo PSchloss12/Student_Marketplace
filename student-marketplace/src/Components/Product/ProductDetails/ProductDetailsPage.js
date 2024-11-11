@@ -35,7 +35,7 @@ const ProductDetailsPage = () => {
 
   return (
     <div className="item-page">
-      <h1 className="item-title">{product.title} ({id})</h1>
+      <h1 className="item-title">{product.title}</h1>
       {imgUrl ? (
         <img className="item-image" src={imgUrl} alt={product.title} />
       ) : (

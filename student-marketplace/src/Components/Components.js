@@ -8,6 +8,7 @@ import ProductDetailsPage from './Product/ProductDetails/ProductDetailsPage.js';
 import ProtectedRoute from '../Services/ProtectedRoute.js';
 import { Navigate } from 'react-router-dom';
 import AuthRedirect from '../Services/AuthRedirect.js';
+import UserListingsPage from "./UserListings/UserListingsPage.js";
 
 
 
@@ -23,6 +24,7 @@ export default function Components() {
                 <Route path="/product/:id" element={<ProtectedRoute element={ProductDetailsPage} />} /> 
                 <Route path="/seller" element={<ProtectedRoute element={SellerPage} />} />
                 <Route path="/auth" element={<AuthRedirect element={AuthPage} />} />
+                <Route path="/listings" element={<ProtectedRoute element={UserListingsPage} />} /> 
                 <Route path="*" element={<Navigate to="/auth" replace />} /> 
             </Routes>
             <br/>
