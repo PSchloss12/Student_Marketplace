@@ -55,7 +55,7 @@
           <p className="login-toggle-text">
             {isLogin ? "Don't have an account?" : "Already have an account?"}
             <a className="login-toggle-link" href="#" onClick={toggleForm}>
-              {isLogin ? "Sign Up" : "Login"}
+              {isLogin ? " Sign Up" : " Login"}
             </a>
           </p>
         </div>

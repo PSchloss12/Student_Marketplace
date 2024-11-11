@@ -1,29 +1,27 @@
 import { useState, useEffect, useMemo } from "react";
-import { useLocation } from 'react-router-dom';
-import { getSellerVenmo } from "../../../Services/Users";
+import { useLocation, useParams } from 'react-router-dom';
+import { getSellerVenmo } from "../../../Services/Transactions";  // Make sure this path is correct
 import './styles.css';
 
 const ProductDetailsPage = () => {
-  // TODO: add purchase capability
-  // TODO: if someone clicks that its bought, update db
-  // TODO: if someone 'watches' item, add it to favorites
+  const { id: productId } = useParams();  // Get the product ID from the URL path
   const location = useLocation();
   const [isBought, setIsBought] = useState(false);
   const [isWatched, setIsWatched] = useState(false);
   const [sellerVenmo, setSellerVenmo] = useState(null);
 
-  // Memoize the product
+  // Memoize the product details from location.state
   const product = useMemo(() => location.state || {}, [location.state]);
 
   useEffect(() => {
-    if (product.sellerId) {
-      getSellerVenmo(product.sellerId)
+    if (productId) {  // Use productId for any logic that requires it, like fetching sellerVenmo
+      getSellerVenmo(productId)
         .then((venmo) => setSellerVenmo(venmo))
         .catch((error) => console.error("Error fetching seller's Venmo:", error));
     }
-  }, [product]);
+  }, [productId]);
 
-  // see if an image was included 
+  // Check if an image was included
   const imgUrl = product.imgUrl ? product.imgUrl._url : null;
 
   if (!product) {
@@ -44,9 +42,9 @@ const ProductDetailsPage = () => {
         <div className="no-image">No Image Available</div>
       )}
       <div className="item-price">Price: ${product.price}</div>
-      <div className="item-description">{product.description}</div>
+      <div className="item-description"><strong>Description:</strong> {product.description}</div>
       <div className="item-venmo">
-        <strong>Seller's Venmo:</strong> {sellerVenmo || "Loading..."}
+        <strong>Seller's Venmo:</strong> {sellerVenmo || "Error: No Venmo Found"}
       </div>
       {isBought && <div className="bought-message">Item marked as bought!</div>}
       <div className="instruction">To purchase, please Venmo the seller.</div>

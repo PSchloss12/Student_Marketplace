@@ -1,9 +1,9 @@
 // this page will allow users to add products the want to sell
+
 import './styles.css';
-import {useState} from "react";
-import {createProduct} from '../../Services/Products';
+import { useState } from "react";
+import { createProduct } from '../../Services/Products';
 import { createTransaction } from '../../Services/Transactions';
-import { updateUser } from '../../Services/Users';
 import Parse from 'parse';
 
 const SellerForm = () => {
@@ -85,19 +85,13 @@ const SellerForm = () => {
       .then((product) => {
         const productId = product.id;
 
-        createTransaction(sellerId, productId)
+        // Pass sellerVenmo to createTransaction
+        createTransaction(sellerId, productId, venmo)
           .then((transaction) => {
             console.log("Transaction created successfully:", transaction);
+            setSuccessMessage("Product Listing created successfully!");
 
-            updateUser(sellerId, venmo)
-              .then(() => {
-                setSuccessMessage("Product Listing created successfully!");
-
-                setFormData(initialFormData);
-              })
-              .catch((error) => {
-                console.error("Error updating user Venmo:", error);
-              });
+            setFormData(initialFormData);
           })
           .catch((error) => {
             console.error("Error creating transaction:", error);
@@ -173,7 +167,7 @@ const SellerForm = () => {
             name="venmo"
             value={formData.venmo}
             onInput={handleChange}
-            placeholder="@your_username"
+            placeholder="@your-username"
             required
           />
         </label>

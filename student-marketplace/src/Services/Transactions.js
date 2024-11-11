@@ -2,14 +2,14 @@ import Parse from 'parse';
 
 // GET: single transaction by id
 export const getTransaction = (id) => {
-    const Transaction = Parse.Object.extend("Transaction");
-    const query = new Parse.Query(Transaction);
-    return query.get(id).then((result) => {
-      return result;
-    }).catch((error) => {
+  const Transaction = Parse.Object.extend("Transaction");
+  const query = new Parse.Query(Transaction);
+  return query.get(id)
+    .then((result) => result)
+    .catch((error) => {
       console.error("Error fetching transaction:", error);
     });
-  };
+};
   
   // GET: all transactions
   export const getAllTransactions = () => {
@@ -29,7 +29,7 @@ export const getTransaction = (id) => {
 
 
   //Post: create new transaction
-  export const createTransaction = (sellerId, productId) => {
+  export const createTransaction = (sellerId, productId, sellerVenmo) => {
     const Transaction = Parse.Object.extend("Transaction");
     const transaction = new Transaction();
   
@@ -43,6 +43,8 @@ export const getTransaction = (id) => {
     ProductPointer.id = productId; 
     transaction.set("productId", ProductPointer);
   
+    //set sellerVenmo
+    transaction.set("sellerVenmo", sellerVenmo);
     // Save the transaction
     return transaction.save().then((result) => {
       return result;
@@ -66,5 +68,35 @@ export const getTransaction = (id) => {
       .catch((error) => {
         console.error("Error fetching transactions:", error);
         return [];
+      });
+  };
+
+  // GET: seller's Venmo by transaction ID
+  export const getSellerVenmo = (productId) => {
+    const Transaction = Parse.Object.extend("Transaction");
+    const query = new Parse.Query(Transaction);
+  
+    // Query for transactions with the specified productId
+    query.equalTo("productId", {
+      __type: "Pointer",
+      className: "Product",
+      objectId: productId
+    });
+  
+    // Limit to 1 result (assuming one transaction per product)
+    query.limit(1);
+  
+    return query.find()
+      .then((transactions) => {
+        if (transactions.length > 0) {
+          // Assuming the first transaction is the one we're interested in
+          return transactions[0].get("sellerVenmo");
+        } else {
+          throw new Error("No transaction found for the product.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching sellerVenmo:", error);
+        throw error;
       });
   };

@@ -100,31 +100,32 @@ const ProductPage = () => {
       </div>
       <hr />
       <div className="product-listings">
-        {filteredProducts.map((product) => (
-          <Link
-            key={product.id}
-            to="/product/1"
-            state={{
-              category: product.get("category"),
-              description: product.get("description"),
-              isAvailable: product.get("isAvailable"),
-              price: product.get("price"),
-              sellerId: product.get("sellerId"),
-              title: product.get("title"),
-              imgUrl: product.get("imgUrl"),
-            }}
-            className="listing"
-          >
-            <div style={{ cursor: "pointer" }}>
-              <ProductItem
-                title={product.get("title")}
-                price={product.get("price")}
-                image={product.get("imgUrl")?.url()} // Ensure url() is called here
-                sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
-              />
-            </div>
-          </Link>
-        ))}
+      {filteredProducts.map((product) => (
+  <Link
+    key={product.id}
+    to={`/product/${product.id}`} 
+    state={{
+      category: product.get("category"),
+      description: product.get("description"),
+      isAvailable: product.get("isAvailable"),
+      price: product.get("price"),
+      sellerId: product.get("sellerId"),
+      title: product.get("title"),
+      imgUrl: product.get("imgUrl"),
+    }}
+    className="listing"
+  >
+    <div style={{ cursor: "pointer" }}>
+      <ProductItem
+        title={product.get("title")}
+        price={product.get("price")}
+        image={product.get("imgUrl")?.url()} // Ensure url() is called here
+        sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
+      />
+    </div>
+  </Link>
+
+))}
       </div>
     </div>
   );

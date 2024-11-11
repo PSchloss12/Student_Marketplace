@@ -34,7 +34,7 @@ import './styles.css';
             {featuredProducts.map((product) => (
               <Link
                 key={product.id}
-                to="/product/1"
+                to={`/product/${product.id}`} 
                 state={ {
                   "category" : product.get("category"),
                   "description" : product.get("description"),
