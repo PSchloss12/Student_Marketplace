@@ -1,41 +1,81 @@
+/* Start of User Listings Page CSS */
+
 .user-listings {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
+  width: calc(100% - 40px);
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-listings h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.listings-section {
+  margin-top: 30px;
+}
+
+.listings-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.listing-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.listing-item:hover {
+  background-color: #f2f2f2;
+}
+
+.listing-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #444;
+}
+
+.listing-item p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-listings {
+    padding: 15px;
   }
   
   .user-listings h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .listings-section {
-    margin-top: 30px;
+    font-size: 1.8em;
   }
   
   .listings-section h2 {
+    font-size: 1.3em;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-listings h1 {
     font-size: 1.5em;
-    margin-bottom: 15px;
   }
   
-  .listing-item {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .listing-item:hover {
-    background-color: #f9f9f9;
-  }
-  
-  .listing-item h3 {
-    margin: 0;
+  .listings-section h2 {
     font-size: 1.2em;
   }
-  
-  .listing-item p {
-    margin: 5px 0;
-  }
+}
+
+/* End of User Listings Page CSS */

@@ -52,9 +52,9 @@ const UserListingsPage = () => {
       <h1>Your Listings</h1>
 
       <div className="listings-section">
-        <h2>Unsold Listings</h2>
+        <h2>Current Listings</h2>
         {unsoldListings.length === 0 ? (
-          <p>No unsold listings</p>
+          <p>No current listings</p>
         ) : (
           unsoldListings.map((listing) => (
             <div key={listing.id} className="listing-item" onClick={() => handleClick(listing)}>
