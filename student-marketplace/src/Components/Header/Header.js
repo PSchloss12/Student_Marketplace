@@ -1,6 +1,7 @@
 // This component will render the navigation bar or header for each page
 import "./styles.css";
 import {Link} from "react-router-dom";
+// ToDo: add additional pages/functionality
 
 const Header = () => {
   return(

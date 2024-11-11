@@ -7,12 +7,9 @@ import Header from './Header/Header.js';
 import ProductDetailsPage from './Product/ProductDetails/ProductDetailsPage.js';
 import ProtectedRoute from '../Services/ProtectedRoute.js';
 import { Navigate } from 'react-router-dom';
-import AuthRedirect from '../Services/AuthRedirect.js';
+import AuthRedirect from './Auth/AuthRedirect.js';
 import UserListingsPage from "./UserListings/UserListingsPage.js";
 
-
-
-// added protected routes to productdetailpage and sellerpage
 export default function Components() {
     return (
         <Router style="background-color: #8CBA80;">

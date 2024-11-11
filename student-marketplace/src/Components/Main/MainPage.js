@@ -9,7 +9,7 @@ import './styles.css';
   const MainPage = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
   
-    var currUser = Parse.User.current(); // hardcoded id for now
+    var currUser = Parse.User.current(); 
   
     useEffect(() => {
       // check if featuredProducts already exists

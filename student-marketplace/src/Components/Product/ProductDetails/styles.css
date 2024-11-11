@@ -19,7 +19,7 @@
   .item-image {
     width: 80%;
     max-width: 400px;
-    height: auto; /* Maintain aspect ratio */
+    height: auto; /*  aspect ratio */
     margin-bottom: 20px; /* Space below the image */
     border: 2px solid #000; /* Black border around the image */
   }
@@ -50,7 +50,7 @@
   
   .bought-message {
     color: green; /* Success message color */
-    margin-top: 10px; /* Space above the message */
+    margin-top: 10px; 
   }
   
   .instruction {

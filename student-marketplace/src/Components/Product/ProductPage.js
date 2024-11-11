@@ -15,7 +15,7 @@ const ProductPage = () => {
 
   var filtered = false;
 
-  // Fetch all products
+  // Fetch all products from database
   useEffect(() => {
     if (products?.length > 0) {
       setProducts(products);
@@ -35,7 +35,7 @@ const ProductPage = () => {
     setSeller('');
     setFilteredProducts(products);
   };
-
+  // filtering logic
   const filterProducts = () => {
     var result = [];
     setShowSellerIds(false);

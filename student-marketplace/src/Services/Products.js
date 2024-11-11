@@ -34,7 +34,7 @@ export const createProduct = (Price, Title, Description, Category, imgUrl, Selle
   product.set("category", Category);
 
   if (imgUrl) {
-    product.set("imgUrl", imgUrl); // Directly use Parse.File object
+    product.set("imgUrl", imgUrl); 
   }
 
   const SellerPointer = new Parse.User();
@@ -54,7 +54,7 @@ export const removeProduct = (id) => {
   });
 };
 
-//GET: get favorites of the user logged in (hardcoded right now)
+//GET: get favorites of the user logged in 
 export const getFavorites = (id) => {
   if (!id) {
     return Promise.resolve([]); // Return an empty array if no id is provided

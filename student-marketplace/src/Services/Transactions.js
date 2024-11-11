@@ -35,12 +35,12 @@ export const getTransaction = (id) => {
   
     // Set sellerId (Pointer to _User)
     const SellerPointer = new Parse.User();
-    SellerPointer.id = sellerId;  // Assign the id of the seller to the pointer
+    SellerPointer.id = sellerId;
     transaction.set("sellerId", SellerPointer);
   
     // Set productId (Pointer to Product)
     const ProductPointer = new Parse.Object("Product");
-    ProductPointer.id = productId;  // Assign the id of the product to the pointer
+    ProductPointer.id = productId; 
     transaction.set("productId", ProductPointer);
   
     // Save the transaction

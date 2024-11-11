@@ -25,14 +25,14 @@ form {
 }
 
 .container {
-  text-align: center; /* Keep the container's titles centered */
+  text-align: center;
 }
 
 .container h1,
 .container h3 {
   margin: 0;
   padding: 10px 0; /* spacing of containers */
-  text-align: center; /* Titles stay centered */
+  text-align: center; 
 }
 
 label {
@@ -74,12 +74,12 @@ button {
   border-radius: 4px;
   cursor: pointer;
   display: inline-block; /* Center the button */
-  margin: 0 auto; /* Align to the center */
+  margin: 0 auto; 
 }
 
 form > button {
   display: block;
-  margin: 20px auto 0; /* Center the button with some margin on top */
+  margin: 20px auto 0; 
 }
 
 button:hover {

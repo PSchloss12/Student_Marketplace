@@ -13,10 +13,10 @@ const UserListingsPage = () => {
   useEffect(() => {
     const fetchUserListings = async () => {
       try {
-        const transactions = await getUserTransactions();
+        const transactions = await getUserTransactions(); // get all the transactions that the user listed 
         const unsold = [];
         const sold = [];
-
+        // for each listing, get the product from the product table
         for (const transaction of transactions) {
           const product = await getProduct(transaction.get("productId").id);
           const listing = {
@@ -24,7 +24,7 @@ const UserListingsPage = () => {
             title: product.get("title"),
             price: product.get("price"),
             dateListed: product.get("createdAt").toLocaleDateString(),
-            imgUrl: product.get("imgUrl"),  // Include imgUrl if available
+            imgUrl: product.get("imgUrl"),  // get imgUrl if included
             sellerId: transaction.get("sellerId"),
             isSold: transaction.get("isSold"),
           };
@@ -42,7 +42,6 @@ const UserListingsPage = () => {
     fetchUserListings();
   }, []);
 
-  // Pass product details in state when navigating to ProductDetailsPage
   const handleClick = (listing) => {
     navigate(`/product/${listing.id}`, { state: listing });
   };

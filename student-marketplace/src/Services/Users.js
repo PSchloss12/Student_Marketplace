@@ -44,7 +44,6 @@ export const getAllUsers = () => {
     return Promise.resolve([]); // Return empty array if something goes wrong
   }
 
-  // Now attempt the query
   return query.find()
     .then((results) => {
       return results;
@@ -55,7 +54,7 @@ export const getAllUsers = () => {
     });
 };
 
-// UPDATE: update a user
+// UPDATE: update a user's venmo when they list an item
 export const updateUser = async (userId, venmoUsername) => {
   try {
     const userQuery = new Parse.Query(Parse.User);
@@ -78,6 +77,7 @@ export const userAuthenticated = () => {
   return currentUser ? currentUser.authenticated() : false;
 };
 
+// function to get the venmo of the seller
 export const getSellerVenmo = async (sellerId) => {
   try {
     const userQuery = new Parse.Query(Parse.User);

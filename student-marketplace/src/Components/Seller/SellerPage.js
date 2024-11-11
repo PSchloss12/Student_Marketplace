@@ -71,6 +71,7 @@ const SellerForm = () => {
     }
 
     let imgUrl = null;
+    // save the picture if it was included
     if (picture) {
       imgUrl = new Parse.File(picture.name, picture);
       await imgUrl.save().catch((error) => {

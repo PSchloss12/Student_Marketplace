@@ -8,9 +8,6 @@
 
   const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
     // redirect already authenticated users back to home
     const navigate = useNavigate();
@@ -18,17 +15,7 @@
       if (isLoggedIn()) {
         alert("You are already logged in");
         navigate("/");
-        // return (
-        //   <div className="login-page">
-        //   <div className="login-container">
-        //     <h1>You are already logged in!</h1>
-        //     <button onClick={navigate("/")}>Home</button>
-        //     <button onClick={logoutUser()}>Logout</button>
-        //   </div>
-        //   </div>
-        // )
       };
-      console.log('not logged in')
     }, [navigate]);
   
     // Get unauthorized message 

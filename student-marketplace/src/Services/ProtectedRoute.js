@@ -6,7 +6,7 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
     const isAuthenticated = userAuthenticated();
 
     if (!isAuthenticated) {
-        // if the user is not authenticated, move them to the login page
+        // if the user is not authenticated, navigate them to the login page
         return <Navigate to="/auth" replace state={{ message: "Unauthorized access. Please log in to continue." }} />;
     }
 

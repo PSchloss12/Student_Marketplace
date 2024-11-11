@@ -11,7 +11,7 @@
     padding: 10px; /* Padding inside the item */
     transition: transform 0.2s;
     flex: 1;
-    min-height: 300px; /* Minimum height to keep the same */
+    min-height: 300px; /* Minimum height */
   }
   
   .product-card:hover {
@@ -20,8 +20,8 @@
   
   .product-image {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    max-height: 150px; /* Set a max height to prevent overflow */
+    height: auto; /*  aspect ratio */
+    max-height: 150px; /* Set a max height  */
     object-fit: contain;
     margin: 0 auto; /* Center the image */
     border: 2px solid black; /* Black border around the image */
@@ -48,7 +48,7 @@
     background-color: #f0f0f0; /* background color when no image */
   }
   
-  /* Ensure the price stays above the bottom border */
+  
   .product-card-content {
     display: flex;
     flex-direction: column;
@@ -58,30 +58,30 @@
   
   @media (max-width: 768px) {
     .product-card {
-        min-height: 250px; /* Reduce min height on smaller screens */
-        padding: 15px; /* Adjust padding */
+        min-height: 250px; /* Reduce min height for smaller screens */
+        padding: 15px; 
     }
 
     .product-title {
-        font-size: 1.1em; /* Decrease font size */
+        font-size: 1.1em; 
     }
 
     .product-price {
-        font-size: 1.2em; /* Decrease font size */
+        font-size: 1.2em; 
     }
 }
 
 @media (max-width: 480px) {
     .product-card {
-        padding: 10px; /* Further reduce padding */
+        padding: 10px; /*  reduce padding */
     }
 
     .product-title {
-        font-size: 1em; /* Further decrease font size */
+        font-size: 1em; /*  decrease font size */
     }
 
     .product-price {
-        font-size: 1em; /* Further decrease font size */
+        font-size: 1em; /*  decrease font size */
     }
 }
   /* End of ProductItem css */

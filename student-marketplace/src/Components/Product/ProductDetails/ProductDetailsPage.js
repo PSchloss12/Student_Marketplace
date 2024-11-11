@@ -4,12 +4,15 @@ import { getSellerVenmo } from "../../../Services/Users";
 import './styles.css';
 
 const ProductDetailsPage = () => {
+  // TODO: add purchase capability
+  // TODO: if someone clicks that its bought, update db
+  // TODO: if someone 'watches' item, add it to favorites
   const location = useLocation();
   const [isBought, setIsBought] = useState(false);
   const [isWatched, setIsWatched] = useState(false);
   const [sellerVenmo, setSellerVenmo] = useState(null);
 
-  // Memoize the product to avoid unnecessary updates
+  // Memoize the product
   const product = useMemo(() => location.state || {}, [location.state]);
 
   useEffect(() => {
@@ -20,7 +23,7 @@ const ProductDetailsPage = () => {
     }
   }, [product]);
 
-  // Check if product.imgUrl and product.imgUrl._url exist
+  // see if an image was included 
   const imgUrl = product.imgUrl ? product.imgUrl._url : null;
 
   if (!product) {

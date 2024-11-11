@@ -7,7 +7,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState({
-    // username: "",
     email: "",
     password: ""
   });

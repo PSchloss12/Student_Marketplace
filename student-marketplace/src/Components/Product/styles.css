@@ -3,10 +3,10 @@
 .product-page {
   width: calc(100% - 40px);
   max-width: 1100px;
-  margin: 20px auto; /* Centering the page with margin */
+  margin: 20px auto; 
   margin-top: 0px;
   margin-bottom: 0px;
-  padding: 20px; /* Padding inside the page */
+  padding: 20px; /* Padding inside  page */
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
@@ -27,14 +27,14 @@
 }
 
 .filter-label {
-  margin: 0; /* Remove margin to keep labels inline */
+  margin: 0;
   font-weight: bold;
 }
 
 .filter-select,
 .filter-input {
   padding: 5px;
-  min-width: 150px; /* Set a minimum width */
+  min-width: 150px; /* minimum width */
   border: 1px solid #ccc;
   border-radius: 4px;
   align-items: center;
@@ -51,8 +51,8 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px; /* Add a small margin to separate the button from the input */
-  margin-right: 5px; /* Add a small margin to separate the button from the input */
+  margin-left: 10px; 
+  margin-right: 5px;
 }
 
 .product-filter-button:hover {
@@ -66,7 +66,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 0px; /* Add a small margin to separate the button from the input */
+  margin-left: 0px; 
 }
 
 .product-clear-button:hover {
@@ -75,8 +75,8 @@
 
 .product-listings {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  gap: 20px; /* Space between product items */
+  grid-template-columns: repeat(3, 1fr); /* 3 columns of items */
+  gap: 20px; /* Space between  items */
   margin-top: 20px;
 }
 
