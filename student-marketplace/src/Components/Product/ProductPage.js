@@ -12,17 +12,17 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showSellerIds, setShowSellerIds] = useState(false);
-  
+
   var filtered = false;
 
   // Fetch all products
   useEffect(() => {
-    if (products?.length>0) {
-      setProducts(products)
+    if (products?.length > 0) {
+      setProducts(products);
     } else {
       getAllProducts().then((data) => {
         setProducts(data);
-        if (!filtered){
+        if (!filtered) {
           setFilteredProducts(data);
         }
       });
@@ -35,14 +35,14 @@ const ProductPage = () => {
     setSeller('');
     setFilteredProducts(products);
   };
-  
+
   const filterProducts = () => {
     var result = [];
     setShowSellerIds(false);
     for (const product of products) {
-      if (priceLimit=='' || product.get('price')<=priceLimit) {
-        if (category=='all' || product.get('category')==category || product.get('category').includes(category)) {
-          if (seller=='' || product.get('sellerId')['id']==seller){
+      if (priceLimit == '' || product.get('price') <= priceLimit) {
+        if (category == 'all' || product.get('category') == category || product.get('category').includes(category)) {
+          if (seller == '' || product.get('sellerId')['id'] == seller) {
             result.push(product);
           }
         }
@@ -53,82 +53,81 @@ const ProductPage = () => {
 
   function toggleSellerIds() {
     setShowSellerIds(!showSellerIds);
-  };
-  
-    return (
-      <div className="product-page">
-        <h1 className="product-title">Browse Listings</h1>
-        <div className="product-filter-section">
-          <label className="filter-label" htmlFor="category">Select Category:</label>
-          <select
-            className="filter-select"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="dormEssentials">Dorm Essentials</option>
-            <option value="tickets">Tickets</option>
-            <option value="electronics">Electronics</option>
-            <option value="textbooks">Textbooks</option>
-            <option value="miscellaneous">Miscellaneous</option>
-          </select>
-  
-          <label className="filter-label" htmlFor="priceLimit">Price Limit ($):</label>
-          <input
-            className="filter-input"
-            type="number"
-            id="priceLimit"
-            placeholder="Enter Price Limit"
-            value={priceLimit}
-            onInput={(e) => setPriceLimit(e.target.value)}
-          />
+  }
 
-          <label className="filter-label" htmlFor="seller">Seller ID:</label>
-          <input
-            className="filter-input"
-            type="any"
-            id="seller"
-            placeholder="Enter Seller ID"
-            value={seller}
-            onInput={(e) => setSeller(e.target.value)}
-            onClick={() => toggleSellerIds()}
-          />
-  
-          <button className="product-filter-button" onClick={filterProducts}>Filter</button>
-          <button className="product-clear-button" onClick={clearFilters}>Clear</button>
-        </div>
-        <hr />
-        <div className="product-listings">
-          {filteredProducts.map((product) => (
-            <Link
+  return (
+    <div className="product-page">
+      <h1 className="product-title">Browse Listings</h1>
+      <div className="product-filter-section">
+        <label className="filter-label" htmlFor="category">Select Category:</label>
+        <select
+          className="filter-select"
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="dormEssentials">Dorm Essentials</option>
+          <option value="tickets">Tickets</option>
+          <option value="electronics">Electronics</option>
+          <option value="textbooks">Textbooks</option>
+          <option value="miscellaneous">Miscellaneous</option>
+        </select>
+
+        <label className="filter-label" htmlFor="priceLimit">Price Limit ($):</label>
+        <input
+          className="filter-input"
+          type="number"
+          id="priceLimit"
+          placeholder="Enter Price Limit"
+          value={priceLimit}
+          onInput={(e) => setPriceLimit(e.target.value)}
+        />
+
+        <label className="filter-label" htmlFor="seller">Seller ID:</label>
+        <input
+          className="filter-input"
+          type="text"
+          id="seller"
+          placeholder="Enter Seller ID"
+          value={seller}
+          onInput={(e) => setSeller(e.target.value)}
+          onClick={() => toggleSellerIds()}
+        />
+
+        <button className="product-filter-button" onClick={filterProducts}>Filter</button>
+        <button className="product-clear-button" onClick={clearFilters}>Clear</button>
+      </div>
+      <hr />
+      <div className="product-listings">
+        {filteredProducts.map((product) => (
+          <Link
             key={product.id}
             to="/product/1"
-            state={ {
-              "category" : product.get("category"),
-              "description" : product.get("description"),
-              "isAvailable" : product.get("isAvailable"),
-              "price" : product.get("price"),
-              "sellerId" : product.get("sellerId"),
-              "title" : product.get("title"),
-              "imgUrl" : product.get("imgUrl"),
-            } }
+            state={{
+              category: product.get("category"),
+              description: product.get("description"),
+              isAvailable: product.get("isAvailable"),
+              price: product.get("price"),
+              sellerId: product.get("sellerId"),
+              title: product.get("title"),
+              imgUrl: product.get("imgUrl"),
+            }}
             className="listing"
           >
-            <div
-              style={{ cursor: "pointer" }}
-            >
+            <div style={{ cursor: "pointer" }}>
               <ProductItem
                 title={product.get("title")}
                 price={product.get("price")}
-                image={product.get("imgUrl")?.url()}
-                sellerId={showSellerIds ? product.get('sellerId')['id'] : null}
+                image={product.get("imgUrl")?.url()} // Ensure url() is called here
+                sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
               />
             </div>
           </Link>
-          ))}
-        </div>
+        ))}
       </div>
-    );
+    </div>
+  );
 };
- export default ProductPage;
+
+export default ProductPage;

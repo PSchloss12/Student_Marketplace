@@ -72,14 +72,10 @@ const SellerForm = () => {
 
     let imgUrl = null;
     if (picture) {
-      const parseFile = new Parse.File(picture.name, picture);
-      await parseFile.save()
-        .then(() => {
-          imgUrl = parseFile.url();
-        })
-        .catch((error) => {
-          console.error("Image upload failed:", error);
-        });
+      imgUrl = new Parse.File(picture.name, picture);
+      await imgUrl.save().catch((error) => {
+        console.error("Image upload failed:", error);
+      });
     }
 
     const sellerId = currentUser.id;
