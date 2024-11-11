@@ -5,7 +5,6 @@ import './styles.css';
 
 const ProductDetailsPage = () => {
   const location = useLocation();
-  const { id } = useParams();
   const [isBought, setIsBought] = useState(false);
   const [isWatched, setIsWatched] = useState(false);
   const [sellerVenmo, setSellerVenmo] = useState(null);
