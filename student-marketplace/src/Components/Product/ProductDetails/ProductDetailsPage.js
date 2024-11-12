@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from 'react-router-dom';
-import { getSellerVenmo } from "../../../Services/Transactions";  // Make sure this path is correct
+import { getSellerVenmo } from "../../../Services/Transactions";  
 import './styles.css';
 
 const ProductDetailsPage = () => {
-  const { id: productId } = useParams();  // Get the product ID from the URL path
+  const { id: productId } = useParams();  // Get the product ID from the URL 
   const location = useLocation();
   const [isBought, setIsBought] = useState(false);
   const [isWatched, setIsWatched] = useState(false);
@@ -14,7 +14,7 @@ const ProductDetailsPage = () => {
   const product = useMemo(() => location.state || {}, [location.state]);
 
   useEffect(() => {
-    if (productId) {  // Use productId for any logic that requires it, like fetching sellerVenmo
+    if (productId) {  // Use productId to get sellerVenmo
       getSellerVenmo(productId)
         .then((venmo) => setSellerVenmo(venmo))
         .catch((error) => console.error("Error fetching seller's Venmo:", error));

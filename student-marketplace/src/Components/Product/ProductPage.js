@@ -119,7 +119,7 @@ const ProductPage = () => {
       <ProductItem
         title={product.get("title")}
         price={product.get("price")}
-        image={product.get("imgUrl")?.url()} // Ensure url() is called here
+        image={product.get("imgUrl")?.url()} 
         sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
       />
     </div>

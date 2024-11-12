@@ -71,7 +71,7 @@ export const getTransaction = (id) => {
       });
   };
 
-  // GET: seller's Venmo by transaction ID
+  // GET: seller's Venmo by product ID
   export const getSellerVenmo = (productId) => {
     const Transaction = Parse.Object.extend("Transaction");
     const query = new Parse.Query(Transaction);
@@ -83,13 +83,11 @@ export const getTransaction = (id) => {
       objectId: productId
     });
   
-    // Limit to 1 result (assuming one transaction per product)
     query.limit(1);
   
     return query.find()
       .then((transactions) => {
         if (transactions.length > 0) {
-          // Assuming the first transaction is the one we're interested in
           return transactions[0].get("sellerVenmo");
         } else {
           throw new Error("No transaction found for the product.");
