@@ -1,5 +1,6 @@
 // ProductPage will display products for users to browse
 import { useState, useEffect } from "react";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { Link } from 'react-router-dom';
 import ProductItem from "./ProductItem/ProductItem.js";
 import { getAllProducts } from "../../Services/Products.js";
@@ -10,8 +11,9 @@ const ProductPage = () => {
   const [priceLimit, setPriceLimit] = useState("");
   const [seller, setSeller] = useState("");
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [showSellerIds, setShowSellerIds] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [jsonProducts, setJsonProducts] = useState([]);
 
   var filtered = false;
 
@@ -25,17 +27,58 @@ const ProductPage = () => {
         if (!filtered) {
           setFilteredProducts(data);
         }
+        setObjectList(data);
       });
     }
   }, []);
+
+  // The autocomplete class needs objects not Parseobjects so this converts products to a list of objects
+  const setObjectList = (data) => {
+    let result = []
+    for (const product of data){
+      if (jsonProducts.length == 0){
+          if (product){
+            const obj = product.toJSON();
+            obj.id = product.id;
+            result.push(obj);
+          }
+      }
+    }
+    setJsonProducts(result);
+  }
+
+  // This function is used to filter products as someone searches
+  const fetchSuggestions = (searchTerm, result) => {
+    if (products?.length > 0){
+      let prods = []
+      for (const product of products){
+        if (product.get("description").includes(searchTerm) || product.get("title").includes(searchTerm)){
+          prods.push(product);
+        }
+      }
+      setFilteredProducts(prods);
+    }
+  };
+
+  // This function filters products to the selected search item
+  function handleOnSelect(search){
+    let result = [];
+    for (const product of products) {
+      if (product.get('title')===search){
+        result.push(product)
+      }
+    }
+    setFilteredProducts(result);
+  }
 
   const clearFilters = () => {
     setCategory('all');
     setPriceLimit('');
     setSeller('');
     setFilteredProducts(products);
+    filtered = false;
   };
-  // filtering logic
+
   const filterProducts = () => {
     var result = [];
     setShowSellerIds(false);
@@ -49,15 +92,45 @@ const ProductPage = () => {
       }
     }
     setFilteredProducts(result);
+    filtered = true;
   };
 
   function toggleSellerIds() {
     setShowSellerIds(!showSellerIds);
   }
 
+  const formatResult = (item) => {
+    return (
+        <>
+            <span style={{ display: 'block', textAlign: 'left' }}>{item.title}</span>
+        </>
+    )
+}
+
+
   return (
     <div className="product-page">
       <h1 className="product-title">Browse Listings</h1>
+      <div className="search-bar-container">
+        <ReactSearchAutocomplete
+          items={jsonProducts}
+          resultStringKeyName='title'
+          fuseOptions={{
+              shouldSort: true,
+              threshold: 0.1,
+              location: 0,
+              distance: 100,
+              maxPatternLength: 32,
+              minMatchCharLength: 2,
+              keys: ["title", "description"]
+            }}
+          onSearch={fetchSuggestions}
+          onSelect={(item) => {handleOnSelect(item.title)}}
+          autoFocus
+          formatResult={formatResult}
+          />
+      </div>
+      <hr/>
       <div className="product-filter-section">
         <label className="filter-label" htmlFor="category">Select Category:</label>
         <select
@@ -101,31 +174,31 @@ const ProductPage = () => {
       <hr />
       <div className="product-listings">
       {filteredProducts.map((product) => (
-  <Link
-    key={product.id}
-    to={`/product/${product.id}`} 
-    state={{
-      category: product.get("category"),
-      description: product.get("description"),
-      isAvailable: product.get("isAvailable"),
-      price: product.get("price"),
-      sellerId: product.get("sellerId"),
-      title: product.get("title"),
-      imgUrl: product.get("imgUrl"),
-    }}
-    className="listing"
-  >
-    <div style={{ cursor: "pointer" }}>
-      <ProductItem
-        title={product.get("title")}
-        price={product.get("price")}
-        image={product.get("imgUrl")?.url()} 
-        sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
-      />
-    </div>
-  </Link>
+      <Link
+        key={product.id}
+        to={`/product/${product.id}`} 
+        state={{
+          category: product.get("category"),
+          description: product.get("description"),
+          isAvailable: product.get("isAvailable"),
+          price: product.get("price"),
+          sellerId: product.get("sellerId"),
+          title: product.get("title"),
+          imgUrl: product.get("imgUrl"),
+        }}
+        className="listing"
+      >
+        <div style={{ cursor: "pointer" }}>
+          <ProductItem
+            title={product.get("title")}
+            price={product.get("price")}
+            image={product.get("imgUrl")?.url()} 
+            sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
+          />
+        </div>
+      </Link>
 
-))}
+      ))}
       </div>
     </div>
   );
