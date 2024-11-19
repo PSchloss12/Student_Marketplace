@@ -47,7 +47,8 @@ input[type="text"],
   align-items: center;
 }
 
-.filter-input[type="number"] {
+.filter-input[type="number"],
+.filter-input[type="text"] {
   width: 150px;
 }
 

@@ -107,7 +107,6 @@ const ProductPage = () => {
     )
 }
 
-
   return (
     <div className="product-page">
       <h1 className="product-title">Browse Listings</h1>
