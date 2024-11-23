@@ -51,6 +51,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 1em; /* Consistent font size */
 }
 
 input[type="checkbox"] {
@@ -85,6 +86,7 @@ form > button {
 button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+
 .success-message {
   text-align: center;
   font-size: 1.2em;
@@ -92,4 +94,36 @@ button:hover {
   margin: 20px 0;
 }
 
-  /* end of sellerform css */
+/* Refined file preview styles */
+.file-preview {
+  font-size: 0.9em; /* Slightly smaller font size */
+  margin-top: 10px;
+  line-height: 1.4; /* Balanced line spacing for readability */
+  color: #333; /* Neutral text color */
+}
+
+.file-preview span {
+  display: block; /* Stack each file name for clarity */
+  margin: 5px 0;
+}
+
+.file-preview span:last-child {
+  margin-bottom: 0; /* Remove extra spacing on the last item */
+}
+
+.file-preview button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 0.8em; /* Smaller button size */
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.file-preview button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+/* end of sellerform css */

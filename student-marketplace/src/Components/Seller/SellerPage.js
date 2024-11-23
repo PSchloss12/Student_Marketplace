@@ -1,9 +1,10 @@
 // this page will allow users to add products the want to sell
 
 import './styles.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createProduct } from '../../Services/Products';
 import { createTransaction } from '../../Services/Transactions';
+import { getUser } from '../../Services/Users'; // Import the getUser service
 import Parse from 'parse';
 
 const SellerForm = () => {
@@ -19,11 +20,28 @@ const SellerForm = () => {
     price: '',
     description: '',
     venmo: '',
-    picture: null,
+    pictures: [], // Array to hold selected pictures
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [successMessage, setSuccessMessage] = useState('');
+  const [sellerUsername, setSellerUsername] = useState(''); // Store the username
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const currentUser = Parse.User.current();
+      if (currentUser) {
+        try {
+          const user = await getUser(currentUser.id); // Fetch the user by ID
+          setSellerUsername(user.get("username")); // Set the sellerUsername
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      }
+    };
+
+    fetchUsername();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -38,7 +56,7 @@ const SellerForm = () => {
     } else if (type === 'file') {
       setFormData((prev) => ({
         ...prev,
-        picture: files[0],
+        pictures: [...prev.pictures, ...Array.from(files)], // Append new files
       }));
     } else {
       setFormData((prev) => ({
@@ -51,11 +69,11 @@ const SellerForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { listingTitle, price, description, categories, picture, venmo } = formData;
+    const { listingTitle, price, description, categories, pictures, venmo } = formData;
     const currentUser = Parse.User.current();
 
-    if (!currentUser) {
-      console.error("User is not authenticated");
+    if (!currentUser || !sellerUsername) {
+      console.error("User is not authenticated or username is missing");
       return;
     }
 
@@ -70,23 +88,27 @@ const SellerForm = () => {
       return;
     }
 
-    let imgUrl = null;
-    // save the picture if it was included
-    if (picture) {
-      imgUrl = new Parse.File(picture.name, picture);
-      await imgUrl.save().catch((error) => {
+    let uploadedFiles = [];
+    if (pictures.length > 0) {
+      try {
+        uploadedFiles = await Promise.all(
+          pictures.map(async (file) => {
+            const parseFile = new Parse.File(file.name, file);
+            await parseFile.save();
+            return parseFile;
+          })
+        );
+      } catch (error) {
         console.error("Image upload failed:", error);
-      });
+        return;
+      }
     }
 
-    const sellerId = currentUser.id;
-
-    createProduct(priceAsNumber, listingTitle, description, selectedCategories, imgUrl, sellerId)
+    createProduct(priceAsNumber, listingTitle, description, selectedCategories, uploadedFiles, currentUser.id, sellerUsername)
       .then((product) => {
         const productId = product.id;
 
-        // Pass sellerVenmo to createTransaction
-        createTransaction(sellerId, productId, venmo)
+        createTransaction(currentUser.id, productId, venmo)
           .then((transaction) => {
             console.log("Transaction created successfully:", transaction);
             setSuccessMessage("Product Listing created successfully!");
@@ -100,6 +122,13 @@ const SellerForm = () => {
       .catch((error) => {
         console.error("Error creating product:", error);
       });
+  };
+
+  const removePicture = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      pictures: prev.pictures.filter((_, i) => i !== index),
+    }));
   };
 
   return (
@@ -136,9 +165,19 @@ const SellerForm = () => {
           ))}
         </fieldset>
         <label>
-          Picture of Item (If Applicable):
-          <input type="file" name="picture" accept="image/*" onChange={handleChange} />
+          Pictures of Item (If Applicable):
+          <input type="file" name="pictures" accept="image/*" multiple onChange={handleChange} />
         </label>
+        <div>
+          {formData.pictures.map((file, index) => (
+            <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+              <span>{file.name}</span>
+              <button type="button" onClick={() => removePicture(index)} style={{ marginLeft: '10px' }}>
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
         <label>
           Listing Price of the Item($):
           <input

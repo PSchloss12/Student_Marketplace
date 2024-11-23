@@ -25,7 +25,7 @@ export const getProduct = (id) => {
 };
 
 //Post operation - create product
-export const createProduct = (Price, Title, Description, Category, imgUrl, SellerId) => {
+export const createProduct = (Price, Title, Description, Category, imgUrls, SellerId, SellerUsername) => {
   const Product = Parse.Object.extend("Product");
   const product = new Product();
   product.set("price", Price);
@@ -33,16 +33,20 @@ export const createProduct = (Price, Title, Description, Category, imgUrl, Selle
   product.set("description", Description);
   product.set("category", Category);
 
-  if (imgUrl) {
-    product.set("imgUrl", imgUrl); 
+  if (imgUrls && imgUrls.length > 0) {
+    product.set("imgUrls", imgUrls); // Save array of Parse.File objects
   }
 
   const SellerPointer = new Parse.User();
   SellerPointer.id = SellerId;
   product.set("sellerId", SellerPointer);
 
+  //sellerUsername
+  product.set("sellerUsername", SellerUsername);
+
   return product.save().then((result) => result);
 };
+
 
 //Delete operation - remove product by ID
 export const removeProduct = (id) => {
