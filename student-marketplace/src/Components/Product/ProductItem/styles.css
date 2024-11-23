@@ -15,13 +15,13 @@
   }
   
   .product-card:hover {
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    transform: scale(1.05); 
   }
   
   .product-image {
     width: 100%;
     height: auto; /*  aspect ratio */
-    max-height: 150px; /* Set a max height  */
+    max-height: 150px; 
     object-fit: contain;
     margin: 0 auto; /* Center the image */
     border: 2px solid black; /* Black border around the image */
@@ -34,7 +34,7 @@
   
   .product-price {
     font-size: 1.5em;
-    margin-top: auto; /* Push it to the bottom of the card */
+    margin-top: auto; 
     margin-bottom: 10px; /* Space above the bottom border */
     font-weight: bold;
   }

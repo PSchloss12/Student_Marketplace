@@ -183,17 +183,17 @@ const ProductPage = () => {
           price: product.get("price"),
           sellerId: product.get("sellerId"),
           title: product.get("title"),
-          imgUrl: product.get("imgUrl"),
+          imgUrls: product.get("imgUrls"),
         }}
         className="listing"
       >
         <div style={{ cursor: "pointer" }}>
-          <ProductItem
-            title={product.get("title")}
-            price={product.get("price")}
-            image={product.get("imgUrl")?.url()} 
-            sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
-          />
+        <ProductItem
+  title={product.get("title")}
+  price={product.get("price")}
+  images={product.get("imgUrls")}
+  sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
+/>
         </div>
       </Link>
 

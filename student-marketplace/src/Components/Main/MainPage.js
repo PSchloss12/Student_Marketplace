@@ -21,7 +21,7 @@ import './styles.css';
         setFeaturedProducts(data);
         });
     }
-    }, [currUser]); // Add currUser as a dependency so it reruns if the user changes
+    }, [currUser]); 
     return (
       <div className="main-page">
         <header className="main-page-header">
@@ -42,7 +42,7 @@ import './styles.css';
                   "price" : product.get("price"),
                   "sellerId" : product.get("sellerId"),
                   "title" : product.get("title"),
-                  "imgUrl" : product.get("imgUrl"),
+                  "imgUrls" : product.get("imgUrls"),
                 } }
                 className="listing"
               >
@@ -52,7 +52,7 @@ import './styles.css';
                   <ProductItem
                     title={product.get("title")}
                     price={product.get("price")}
-                    image={product.get("imgUrl")?.url()}
+                    images={product.get("imgUrls")}
                   />
                 </div>
               </Link>

@@ -24,7 +24,7 @@ const UserListingsPage = () => {
             title: product.get("title"),
             price: product.get("price"),
             dateListed: product.get("createdAt").toLocaleDateString(),
-            imgUrl: product.get("imgUrl"),  // get imgUrl if included
+            imgUrls: product.get("imgUrls"),
             sellerId: transaction.get("sellerId"),
             isSold: transaction.get("isSold"),
           };

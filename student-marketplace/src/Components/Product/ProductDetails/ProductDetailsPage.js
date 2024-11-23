@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from 'react-router-dom';
 import { getSellerVenmo } from "../../../Services/Transactions";  
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import './styles.css';
 
 const ProductDetailsPage = () => {
@@ -21,8 +23,15 @@ const ProductDetailsPage = () => {
     }
   }, [productId]);
 
-  // Check if an image was included
-  const imgUrl = product.imgUrl ? product.imgUrl._url : null;
+  // change format of images to be used for the gallery
+  const galleryImages = useMemo(() => {
+    if (!product.imgUrls) return []; // If no images
+    const imgUrls = Array.isArray(product.imgUrls) ? product.imgUrls : [product.imgUrls];
+    return imgUrls.map((img) => ({
+      original: img._url || img, 
+      thumbnail: img._url || img, // thumbnail URL
+    }));
+  }, [product.imgUrls]);
 
   if (!product) {
     console.error("Product could not be found:", product);
@@ -36,11 +45,13 @@ const ProductDetailsPage = () => {
   return (
     <div className="item-page">
       <h1 className="item-title">{product.title}</h1>
-      {imgUrl ? (
-        <img className="item-image" src={imgUrl} alt={product.title} />
+      
+      {galleryImages.length > 0 ? (
+        <ImageGallery items={galleryImages} />
       ) : (
-        <div className="no-image">No Image Available</div>
+        <div className="no-image">No Images Available</div>
       )}
+      
       <div className="item-price">Price: ${product.price}</div>
       <div className="item-description"><strong>Description:</strong> {product.description}</div>
       <div className="item-venmo">

@@ -34,7 +34,7 @@ export const createProduct = (Price, Title, Description, Category, imgUrls, Sell
   product.set("category", Category);
 
   if (imgUrls && imgUrls.length > 0) {
-    product.set("imgUrls", imgUrls); // Save array of Parse.File objects
+    product.set("imgUrls", imgUrls);
   }
 
   const SellerPointer = new Parse.User();
