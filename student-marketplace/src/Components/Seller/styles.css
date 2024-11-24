@@ -51,7 +51,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  font-size: 1em; /* Consistent font size */
+  font-size: 1em; 
 }
 
 input[type="checkbox"] {
@@ -94,21 +94,20 @@ button:hover {
   margin: 20px 0;
 }
 
-/* Refined file preview styles */
 .file-preview {
-  font-size: 0.9em; /* Slightly smaller font size */
+  font-size: 0.9em; 
   margin-top: 10px;
-  line-height: 1.4; /* Balanced line spacing for readability */
-  color: #333; /* Neutral text color */
+  line-height: 1.4; 
+  color: #333; 
 }
 
 .file-preview span {
-  display: block; /* Stack each file name for clarity */
+  display: block; /* Stack each file name  */
   margin: 5px 0;
 }
 
 .file-preview span:last-child {
-  margin-bottom: 0; /* Remove extra spacing on the last item */
+  margin-bottom: 0;
 }
 
 .file-preview button {

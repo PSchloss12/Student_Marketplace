@@ -15,12 +15,12 @@ const ProductPage = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [jsonProducts, setJsonProducts] = useState([]);
 
-  // Fetch only available products from the database
+  // get only available products from the database
   useEffect(() => {
     getAvailableProducts()
       .then((data) => {
         setProducts(data);
-        setFilteredProducts(data); // Initially show all available products
+        setFilteredProducts(data);
         setObjectList(data);
       })
       .catch((error) => console.error("Error fetching available products:", error));

@@ -46,8 +46,6 @@
       <div className="login-page">
         <div className="login-container">
           <h1 className="login-title">{isLogin ? "Login" : "Sign Up"}</h1>
-
-          {/* Display the unauthorized access message if present */}
           {message && <p className="error-message">{message}</p>}
                     
           <Register />

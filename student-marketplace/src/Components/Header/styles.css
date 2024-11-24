@@ -23,7 +23,7 @@
 }
 
 .topappbar .title {
-  flex-grow: 1; /* title takes available space */
+  flex-grow: 1; 
   text-align: left; /* Align title to the left */
   font-size: 20px;
 }

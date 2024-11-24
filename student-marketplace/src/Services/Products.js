@@ -93,7 +93,7 @@ export const getFavorites = async () => {
   }
 };
 
-// set isAvailable to false when someone buys a product
+// UPDATE: set isAvailable to false when someone buys a product
 export const updateAvailable = async (productId) => {
   try {
     const product = await getProduct(productId); // Fetch the product by ID
@@ -106,7 +106,7 @@ export const updateAvailable = async (productId) => {
   }
 };
 
-// gets all products that are available
+// GET: gets all products that are available
 export const getAvailableProducts = async () => {
   const Product = Parse.Object.extend("Product");
   const query = new Parse.Query(Product);
@@ -114,7 +114,7 @@ export const getAvailableProducts = async () => {
   return query.find().then((results) => results);
 };
 
-// add a product to the current  user's favorite array 
+// UPDATE: add a product to the current  user's favorite array 
 export const addToFavorites = async (productId) => {
   const currentUser = Parse.User.current();  // Get the current logged-in user
   if (!currentUser) {

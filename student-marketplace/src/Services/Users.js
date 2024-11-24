@@ -1,6 +1,6 @@
 import Parse from 'parse';
 
-// POST: add user to db (when they signup) - fix when we do auth?
+// POST: add user to db (when they signup)
 export const createUser = (Username, Email, Password, Venmo) => {
   const User = Parse.Object.extend("User");
   const user = new User();

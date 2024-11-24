@@ -4,7 +4,7 @@ import './styles.css';
 import { useState, useEffect } from "react";
 import { createProduct } from '../../Services/Products';
 import { createTransaction } from '../../Services/Transactions';
-import { getUser } from '../../Services/Users'; // Import the getUser service
+import { getUser } from '../../Services/Users'; 
 import Parse from 'parse';
 
 const SellerForm = () => {
@@ -20,12 +20,12 @@ const SellerForm = () => {
     price: '',
     description: '',
     venmo: '',
-    pictures: [], // Array to hold selected pictures
+    pictures: [], 
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [successMessage, setSuccessMessage] = useState('');
-  const [sellerUsername, setSellerUsername] = useState(''); // Store the username
+  const [sellerUsername, setSellerUsername] = useState('');
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -56,7 +56,7 @@ const SellerForm = () => {
     } else if (type === 'file') {
       setFormData((prev) => ({
         ...prev,
-        pictures: [...prev.pictures, ...Array.from(files)], // Append new files
+        pictures: [...prev.pictures, ...Array.from(files)], 
       }));
     } else {
       setFormData((prev) => ({

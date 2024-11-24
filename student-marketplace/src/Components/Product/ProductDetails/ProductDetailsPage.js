@@ -8,6 +8,8 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './styles.css';
 
+//TODO: add additional buying functionality (connect to stripe, etc.)
+
 const ProductDetailsPage = () => {
   const { id: productId } = useParams();  // Get the product ID from the URL 
   const location = useLocation();
@@ -38,10 +40,10 @@ const ProductDetailsPage = () => {
 
   const handleBuy = async () => {
     try {
-      await updateAvailable(productId); // Call the service to update availability
-      setIsBought(true); // Update the state to reflect the purchase
+      await updateAvailable(productId); //  update availability to false
+      setIsBought(true); //
 
-      // Call transactionBuyer to update the buyerId for the relevant transaction
+      //  update the buyerId for the transaction
       await transactionBuyer(productId); 
     } catch (error) {
       console.error("Error processing the purchase:", error);
@@ -51,8 +53,8 @@ const ProductDetailsPage = () => {
 
   const handleWatch = async () => {
     try {
-      await addToFavorites(productId); // Call the service to add the product to favorites
-      setIsWatched(true); // Update the state to reflect the addition
+      await addToFavorites(productId); // add the product to favorites
+      setIsWatched(true); 
     } catch (error) {
       console.error("Error adding product to favorites:", error);
     }

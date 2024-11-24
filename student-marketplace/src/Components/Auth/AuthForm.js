@@ -1,3 +1,4 @@
+// form to be displayed to login
 import React from "react";
 
 const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
