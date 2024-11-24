@@ -87,13 +87,38 @@ export const getFavorites = (id) => {
     })
     .then((favoriteProducts) => {
       if (!favoriteProducts.length) {
-        console.warn("No favorite products found for this user. Returning all products.");
-        return getAllProducts();
+        console.warn("No favorite products found for this user. Returning all available products.");
+        return getAllProducts().then((allProducts) => 
+          allProducts.filter((product) => product.get("isAvailable") === true)
+        );
       }
-      return favoriteProducts;
+    
+      // Filter favorite products to include only available ones
+      return favoriteProducts.filter((product) => product.get("isAvailable") === true);
     })
     .catch((error) => {
       console.error("Error fetching favorites:", error);
       return getAllProducts(); // Fetch all products on error
     });
+};
+
+// set isAvailable to false when someone buys a product
+export const updateAvailable = async (productId) => {
+  try {
+    const product = await getProduct(productId); // Fetch the product by ID
+    product.set("isAvailable", false); // Update the isAvailable attribute
+    await product.save(); // Save
+    console.log("Product availability updated successfully.");
+  } catch (error) {
+    console.error("Error updating product availability:", error);
+    throw error; 
+  }
+};
+
+// gets all products that are available
+export const getAvailableProducts = async () => {
+  const Product = Parse.Object.extend("Product");
+  const query = new Parse.Query(Product);
+  query.equalTo("isAvailable", true); // Filter products where isAvailable is true
+  return query.find().then((results) => results);
 };

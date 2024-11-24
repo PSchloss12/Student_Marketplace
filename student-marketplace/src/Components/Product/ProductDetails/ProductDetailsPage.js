@@ -1,6 +1,8 @@
+// displays the details of the product
 import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from 'react-router-dom';
 import { getSellerVenmo } from "../../../Services/Transactions";  
+import { updateAvailable } from "../../../Services/Products";  // Import the new service
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './styles.css';
@@ -23,7 +25,7 @@ const ProductDetailsPage = () => {
     }
   }, [productId]);
 
-  // change format of images to be used for the gallery
+  // Format images for the gallery
   const galleryImages = useMemo(() => {
     if (!product.imgUrls) return []; // If no images
     const imgUrls = Array.isArray(product.imgUrls) ? product.imgUrls : [product.imgUrls];
@@ -32,6 +34,15 @@ const ProductDetailsPage = () => {
       thumbnail: img._url || img, // thumbnail URL
     }));
   }, [product.imgUrls]);
+
+  const handleBuy = async () => {
+    try {
+      await updateAvailable(productId); // Call the service to update availability
+      setIsBought(true); // Update the state to reflect the purchase
+    } catch (error) {
+      console.error("Error updating product availability:", error);
+    }
+  };
 
   if (!product) {
     console.error("Product could not be found:", product);
@@ -60,7 +71,7 @@ const ProductDetailsPage = () => {
       {isBought && <div className="bought-message">Item marked as bought!</div>}
       <div className="instruction">To purchase, please Venmo the seller.</div>
       <div>
-        <button className="buy-button" onClick={() => setIsBought(true)}>
+        <button className="buy-button" onClick={handleBuy}>
           Buy
         </button>
         <label>
