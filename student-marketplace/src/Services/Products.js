@@ -1,5 +1,4 @@
 import Parse from 'parse';
-import { getAllUsers } from './Users';
 // GET: all products
 export const getAllProducts = () => {
   const Product = Parse.Object.extend("Product");
@@ -59,47 +58,39 @@ export const removeProduct = (id) => {
 };
 
 //GET: get favorites of the user logged in 
-export const getFavorites = (id) => {
-  if (!id) {
-    return Promise.resolve([]); // Return an empty array if no id is provided
+export const getFavorites = async () => {
+  const currentUser = Parse.User.current(); // Get the current logged-in user
+
+  if (!currentUser) {
+    throw new Error("No user is logged in.");
   }
 
-  // Get all users and find the one with the matching id
-  return getAllUsers()
-    .then((users) => {
-      // Find the user that matches the  id
-      const user = users.find((user) => user.id === id);
+  try {
+    // Get the favorites array (which contains product IDs) from the current user
+    const currentFavorites = currentUser.get("favorites") || []; // Default to an empty array if favorites is not set
 
-      if (!user) {
-        console.warn("User not found, fetching all products instead.");
-        return getAllProducts(); // Call getAllProducts if no matching user is found
-      }
+    // Ensure currentFavorites is an array
+    if (!Array.isArray(currentFavorites)) {
+      throw new Error("Favorites should be an array.");
+    }
 
-      // Get the 'favorites' relation for the found user
-      const favoritesRelation = user.relation("favorites"); // Ensure 'favorites' relation exists
-      if (!favoritesRelation) {
-        throw new Error("Favorites relation not found on user.");
-      }
+    // If no favorites are found, return an empty array or all available products
+    if (currentFavorites.length === 0) {
+      console.warn("No favorites found for this user.");
+      return []; // Or you could return all available products if needed
+    }
 
-      const favoritesQuery = favoritesRelation.query(); // Query the favorites
+    // Fetch the full product details for each favorite product ID
+    const productPromises = currentFavorites.map((productId) => getProduct(productId));
+    const favoriteProducts = await Promise.all(productPromises);
 
-      return favoritesQuery.find();
-    })
-    .then((favoriteProducts) => {
-      if (!favoriteProducts.length) {
-        console.warn("No favorite products found for this user. Returning all available products.");
-        return getAllProducts().then((allProducts) => 
-          allProducts.filter((product) => product.get("isAvailable") === true)
-        );
-      }
+    // Filter and return only available products (assuming each product is an object with an 'isAvailable' property)
+    return favoriteProducts.filter((product) => product.get("isAvailable") === true);
     
-      // Filter favorite products to include only available ones
-      return favoriteProducts.filter((product) => product.get("isAvailable") === true);
-    })
-    .catch((error) => {
-      console.error("Error fetching favorites:", error);
-      return getAllProducts(); // Fetch all products on error
-    });
+  } catch (error) {
+    console.error("Error fetching favorites:", error);
+    return []; // Return an empty array on error
+  }
 };
 
 // set isAvailable to false when someone buys a product
@@ -121,4 +112,39 @@ export const getAvailableProducts = async () => {
   const query = new Parse.Query(Product);
   query.equalTo("isAvailable", true); // Filter products where isAvailable is true
   return query.find().then((results) => results);
+};
+
+// add a product to the current  user's favorite array 
+export const addToFavorites = async (productId) => {
+  const currentUser = Parse.User.current();  // Get the current logged-in user
+  if (!currentUser) {
+    throw new Error("User is not logged in.");
+  }
+
+  try {
+    const user = currentUser; // Use the logged-in user
+    const currentFavorites = user.get("favorites") || []; // Get current favorites (or an empty array if not set)
+
+    // Ensure currentFavorites is an array
+    if (!Array.isArray(currentFavorites)) {
+      throw new Error("Favorites should be an array.");
+    }
+
+    // If product is already in favorites, just return without doing anything
+    if (currentFavorites.includes(productId)) {
+      console.log("Product is already in favorites.");
+      return; // Just return, no need to add the product again
+    }
+
+    // Add the product to the array
+    currentFavorites.push(productId);
+    user.set("favorites", currentFavorites);
+
+    // Save the updated user object
+    await user.save();
+    console.log("Product added to favorites successfully.");
+  } catch (error) {
+    console.error("Error adding product to favorites:", error);
+    throw error; // Re-throw the error to propagate it up
+  }
 };

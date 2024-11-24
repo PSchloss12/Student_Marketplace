@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from 'react-router-dom';
 import { getSellerVenmo } from "../../../Services/Transactions";  
-import { updateAvailable } from "../../../Services/Products";  // Import the new service
+import { updateAvailable, addToFavorites } from "../../../Services/Products"; // Import the new service
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './styles.css';
@@ -44,6 +44,15 @@ const ProductDetailsPage = () => {
     }
   };
 
+  const handleWatch = async () => {
+    try {
+      await addToFavorites(productId); // Call the service to add the product to favorites
+      setIsWatched(true); // Update the state to reflect the addition
+    } catch (error) {
+      console.error("Error adding product to favorites:", error);
+    }
+  };
+  
   if (!product) {
     console.error("Product could not be found:", product);
     return (
@@ -78,7 +87,8 @@ const ProductDetailsPage = () => {
           <input
             className="checkbox"
             type="checkbox"
-            onChange={() => setIsWatched(!isWatched)}
+            checked={isWatched}
+            onChange={handleWatch}
           />
           Add To Watch List
         </label>
