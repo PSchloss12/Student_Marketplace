@@ -98,3 +98,39 @@ export const getTransaction = (id) => {
         throw error;
       });
   };
+
+
+  export const transactionBuyer = async (productId) => {
+    const Transaction = Parse.Object.extend("Transaction");
+    const query = new Parse.Query(Transaction);
+  
+    try {
+      // Query for all transactions with the same productId
+      query.equalTo("productId", { __type: "Pointer", className: "Product", objectId: productId });
+      const transactions = await query.find(); // Fetch all matching transactions
+  
+      if (transactions.length === 0) {
+        throw new Error("No transaction found for the given product.");
+      }
+  
+      // Assuming we want to update the first transaction found (you could refine this logic)
+      const transaction = transactions[0];
+  
+      const currentUser = Parse.User.current();
+      if (!currentUser) {
+        throw new Error("No current user found. User must be logged in to make a purchase.");
+      }
+  
+      // Set the buyerId to the current user
+      transaction.set("buyerId", currentUser);  // _User pointer for the buyer
+  
+      // Save the updated transaction
+      await transaction.save();
+  
+      console.log("Transaction updated successfully:", transaction);
+      return transaction;  // Return the updated transaction
+    } catch (error) {
+      console.error("Error updating transaction:", error);
+      throw error;
+    }
+  };

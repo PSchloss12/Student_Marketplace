@@ -2,7 +2,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from 'react-router-dom';
 import { getSellerVenmo } from "../../../Services/Transactions";  
-import { updateAvailable, addToFavorites } from "../../../Services/Products"; // Import the new service
+import { updateAvailable, addToFavorites } from "../../../Services/Products"; 
+import { transactionBuyer } from "../../../Services/Transactions"; 
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './styles.css';
@@ -39,10 +40,14 @@ const ProductDetailsPage = () => {
     try {
       await updateAvailable(productId); // Call the service to update availability
       setIsBought(true); // Update the state to reflect the purchase
+
+      // Call transactionBuyer to update the buyerId for the relevant transaction
+      await transactionBuyer(productId); 
     } catch (error) {
-      console.error("Error updating product availability:", error);
+      console.error("Error processing the purchase:", error);
     }
   };
+
 
   const handleWatch = async () => {
     try {
@@ -52,7 +57,7 @@ const ProductDetailsPage = () => {
       console.error("Error adding product to favorites:", error);
     }
   };
-  
+
   if (!product) {
     console.error("Product could not be found:", product);
     return (
