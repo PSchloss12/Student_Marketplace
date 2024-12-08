@@ -165,7 +165,7 @@ const SellerForm = () => {
           ))}
         </fieldset>
         <label>
-          Pictures of Item (If Applicable):
+          Pictures of Item If Applicable (jpeg):
           <input type="file" name="pictures" accept="image/*" multiple onChange={handleChange} />
         </label>
         <div>
