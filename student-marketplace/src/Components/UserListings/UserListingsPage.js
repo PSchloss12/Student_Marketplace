@@ -26,14 +26,14 @@ const UserListingsPage = () => {
             dateListed: product.get("createdAt").toLocaleDateString(),
             imgUrls: product.get("imgUrls"),
             sellerId: transaction.get("sellerId"),
-            isSold: transaction.get("isSold"),
+            isAvailable: product.get("isAvailable"),
           };
-
-          listing.isSold ? sold.push(listing) : unsold.push(listing);
+          listing.isAvailable ? unsold.push(listing) : sold.push(listing);
         }
-
+      
         setUnsoldListings(unsold);
         setSoldListings(sold);
+      
       } catch (error) {
         console.error("Error fetching user listings:", error);
       }

@@ -19,7 +19,6 @@ export const getProduct = (id) => {
   const query = new Parse.Query(Product);
   return query.get(id).then((result) => {
     return result;
-  
   });
 };
 
