@@ -33,3 +33,16 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - fixed the authorization services
 - fixed user errors and print statements
+
+## [0.4.0] - 2024-12-14
+   
+### Added
+- User Listings Page for users to see what products they currently have posted and any past products they sold
+- Image gallery to display all pictures that were uploaded
+- Fuzzy matching autocomplete search on products page
+- Deployed via vercel
+### Changed
+- Allow users to upload multiple pictures of their products instead of one when they list an item
+### Fixed
+- Filtering capability (by price and category) on the products page
+- venmo attribute is correctly stored when a product is posted and displayed on the product detail page
