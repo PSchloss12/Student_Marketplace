@@ -40,7 +40,7 @@ All notable changes to this project will be documented in this file.
 - User Listings Page for users to see what products they currently have posted and any past products they sold
 - Image gallery to display all pictures that were uploaded
 - Fuzzy matching autocomplete search on products page
-- Deployed via vercel
+- Deployed via vercel --> https://student-marketplace-mu.vercel.app/
 ### Changed
 - Allow users to upload multiple pictures of their products instead of one when they list an item
 ### Fixed
