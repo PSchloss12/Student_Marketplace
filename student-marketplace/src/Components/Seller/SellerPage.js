@@ -110,7 +110,7 @@ const SellerForm = () => {
 
         createTransaction(currentUser.id, productId, venmo)
           .then((transaction) => {
-            console.log("Transaction created successfully:", transaction);
+            // console.log("Transaction created successfully:", transaction);
             setSuccessMessage("Product Listing created successfully!");
 
             setFormData(initialFormData);

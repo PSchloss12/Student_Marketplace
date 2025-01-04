@@ -11,7 +11,7 @@ const ProductPage = () => {
   const [priceLimit, setPriceLimit] = useState("");
   const [seller, setSeller] = useState("");
   const [products, setProducts] = useState([]);
-  const [showSellerIds, setShowSellerIds] = useState(false);
+  const [showSellerNames, setShowSellerIds] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [jsonProducts, setJsonProducts] = useState([]);
 
@@ -61,14 +61,14 @@ const ProductPage = () => {
     const result = products.filter((product) => {
       const matchesPrice = !priceLimit || product.get("price") <= priceLimit;
       const matchesCategory = category === "all" || product.get("category") === category || product.get("category").includes(category);
-      const matchesSeller = !seller || product.get("sellerId")["id"] === seller;
+      const matchesSeller = !seller || product.get("sellerUsername").includes(seller);
 
       return matchesPrice && matchesCategory && matchesSeller;
     });
     setFilteredProducts(result);
   };
 
-  const toggleSellerIds = () => setShowSellerIds(!showSellerIds);
+  const toggleSellerNames = () => setShowSellerIds(!showSellerNames);
 
   const formatResult = (item) => (
     <>
@@ -85,7 +85,7 @@ const ProductPage = () => {
           resultStringKeyName="title"
           fuseOptions={{
             shouldSort: true,
-            threshold: 0.1,
+            threshold: 0.6,
             location: 0,
             distance: 100,
             maxPatternLength: 32,
@@ -130,10 +130,10 @@ const ProductPage = () => {
           className="filter-input"
           type="text"
           id="seller"
-          placeholder="Enter Seller ID"
+          placeholder="Enter Seller Username"
           value={seller}
           onInput={(e) => setSeller(e.target.value)}
-          onClick={toggleSellerIds}
+          onClick={toggleSellerNames}
         />
 
         <button className="product-filter-button" onClick={filterProducts}>Filter</button>
@@ -150,9 +150,10 @@ const ProductPage = () => {
               description: product.get("description"),
               isAvailable: product.get("isAvailable"),
               price: product.get("price"),
-              sellerId: product.get("sellerId"),
+              sellerUsername: product.get("sellerUsername"),
               title: product.get("title"),
               imgUrls: product.get("imgUrls"),
+              sellerName: product.get("sellerUsername")
             }}
             className="listing"
           >
@@ -160,7 +161,7 @@ const ProductPage = () => {
               title={product.get("title")}
               price={product.get("price")}
               images={product.get("imgUrls")}
-              sellerId={showSellerIds ? product.get("sellerId")["id"] : null}
+              sellerUsername={showSellerNames ? product.get("sellerUsername") : null}
             />
           </Link>
         ))}

@@ -1,7 +1,7 @@
 // Product item is a box to display a single product on another page
 import './styles.css';
 
-const ProductItem = ({ title, price, images, sellerId }) => {
+const ProductItem = ({ title, price, images, sellerUsername }) => {
   const firstImage = images && images.length > 0 ? images[0].url() : null; // display first image
   return (
     <div className="product-card">
@@ -13,7 +13,7 @@ const ProductItem = ({ title, price, images, sellerId }) => {
           <div className="product-no-image">No Image Available</div>
         )}
         <p className="product-price">${price}</p>
-        {sellerId && <p>{sellerId}</p>}
+        {sellerUsername && <p>{sellerUsername}</p>}
       </div>
     </div>
   );

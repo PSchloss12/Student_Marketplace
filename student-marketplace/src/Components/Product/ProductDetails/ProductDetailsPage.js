@@ -19,7 +19,7 @@ const ProductDetailsPage = () => {
 
   // Memoize the product details from location.state
   const product = useMemo(() => location.state || {}, [location.state]);
-
+  
   useEffect(() => {
     if (productId) {  // Use productId to get sellerVenmo
       getSellerVenmo(productId)
@@ -39,6 +39,7 @@ const ProductDetailsPage = () => {
   }, [product.imgUrls]);
 
   const handleBuy = async () => {
+    // TODO: this should only be accessible to sellers so that you can't remove products without buying them
     try {
       await updateAvailable(productId); //  update availability to false
       setIsBought(true); //
@@ -53,7 +54,7 @@ const ProductDetailsPage = () => {
 
   const handleWatch = async () => {
     try {
-      await addToFavorites(productId); // add the product to favorites
+      await addToFavorites(productId);
       setIsWatched(true); 
     } catch (error) {
       console.error("Error adding product to favorites:", error);
@@ -81,6 +82,7 @@ const ProductDetailsPage = () => {
       
       <div className="item-price">Price: ${product.price}</div>
       <div className="item-description"><strong>Description:</strong> {product.description}</div>
+      <div className="item-description"><strong>Seller:</strong> {product.sellerName}</div>
       <div className="item-venmo">
         <strong>Seller's Venmo:</strong> {sellerVenmo || "Error: No Venmo Found"}
       </div>
@@ -88,7 +90,7 @@ const ProductDetailsPage = () => {
       <div className="instruction">To purchase, please Venmo the seller.</div>
       <div>
         <button className="buy-button" onClick={handleBuy}>
-          Buy
+          Mark as Sold
         </button>
         <label>
           <input
