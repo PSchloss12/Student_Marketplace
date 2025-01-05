@@ -8,7 +8,6 @@ export const createUser = (newUser) => {
   user.set("email", newUser.email);
   user.set("password", newUser.password);
 
-  console.log("User: ", user);
   return user
     .signUp()
     .then((newUserSaved) => {
@@ -26,8 +25,6 @@ export const loginUser = (currUser) => {
   user.set("username", currUser.email);
   user.set("password", currUser.password);
 
-  console.log("User: ", user);
-  console.log();
   return user
     .logIn(user.email, user.password)
     .then((currUserSaved) => {
@@ -45,7 +42,6 @@ export const isLoggedIn = () => {
 export const logoutUser = async () => {
   try { 
     await Parse.User.logOut();
-    console.log('User logged out successfully.'); // Redirect or update state to reflect the logout
     } catch (error) {
       console.error('Error logging out: ', error);    
     }

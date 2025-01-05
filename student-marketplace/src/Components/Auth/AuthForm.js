@@ -18,18 +18,23 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
                     required
                     />
             </div>
-            <label className="login-form-label" htmlFor="email">
-            Email:
-            </label>
-            <input
-            className="login-form-input"
-            type="email"
-            id="email"
-            name="email"
-            value={user.email}
-            onChange={onChange}
-            required
-            />
+            {/* TODO: don't require email for login */}
+            {false ? <></>:
+            <div>
+                <label className="login-form-label" htmlFor="email">
+                Email:
+                </label>
+                <input
+                className="login-form-input"
+                type="email"
+                id="email"
+                name="email"
+                value={user.email}
+                onChange={onChange}
+                required = {!isLogin}
+                />
+            </div>
+            }
             <label className="login-form-label" htmlFor="password">
             Password:
             </label>

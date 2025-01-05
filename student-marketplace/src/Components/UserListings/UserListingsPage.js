@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserTransactions } from '../../Services/Transactions';
 import { getProduct } from '../../Services/Products';
+import { updateAvailable } from "../../Services/Products"; 
 import './styles.css';
 
 const UserListingsPage = () => {
@@ -46,6 +47,16 @@ const UserListingsPage = () => {
     navigate(`/product/${listing.id}`, { state: listing });
   };
 
+  const markAsBought = async (productId) => {
+    // TODO: this should only be accessible to sellers so that you can't remove products without buying them
+    try {
+      await updateAvailable(productId); //  update availability to false
+      // await transactionBuyer(productId); //  update the buyerId for the transaction
+    } catch (error) {
+      console.error("Error processing the purchase:", error);
+    }
+  };
+
   return (
     <div className="user-listings">
       <h1>Your Listings</h1>
@@ -56,11 +67,16 @@ const UserListingsPage = () => {
           <p>No current listings</p>
         ) : (
           unsoldListings.map((listing) => (
-            <div key={listing.id} className="listing-item" onClick={() => handleClick(listing)}>
-              <h3>{listing.title}</h3>
-              <p>Price: ${listing.price}</p>
-              <p>Date Listed: {listing.dateListed}</p>
-              <p>Status: {listing.isSold ? "Sold" : "Available"}</p>
+            <div key={listing.id} className='unsold-container'>
+              <div className="listing-item" onClick={() => handleClick(listing)}>
+                <h3>{listing.title}</h3>
+                <p>Price: ${listing.price}</p>
+                <p>Date Listed: {listing.dateListed}</p>
+                <p>Status: {listing.isSold ? "Sold" : "Available"}</p>
+              </div>
+              <button className="buy-button" onClick={()=>markAsBought(listing.id)}>
+                Mark as Bought
+              </button>
             </div>
           ))
         )}

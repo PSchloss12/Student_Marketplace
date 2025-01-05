@@ -27,6 +27,12 @@
   color: #333;
 }
 
+.unsold-container {
+  display: flex;
+  justify-content: space-between; /* Ensures spacing between the listing and the button */
+  align-items: center; /* Vertically aligns items */
+}
+
 .listing-item {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -36,6 +42,7 @@
   transition: background-color 0.2s ease;
   background-color: #f3f3f3; 
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
 }
 
 .listing-item:hover {
@@ -51,6 +58,16 @@
 .listing-item p {
   margin: 5px 0;
   color: #555;
+}
+
+.buy-button {
+  margin-left: 1rem; /* Optional: adds some spacing between the button and the listing */
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Responsive adjustments */

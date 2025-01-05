@@ -41,16 +41,14 @@ const ProductDetailsPage = () => {
   const handleBuy = async () => {
     // TODO: this should only be accessible to sellers so that you can't remove products without buying them
     try {
-      await updateAvailable(productId); //  update availability to false
-      setIsBought(true); //
-
-      //  update the buyerId for the transaction
-      await transactionBuyer(productId); 
+      // await updateAvailable(productId); //  update availability to false
+      // setIsBought(true);
+      // await transactionBuyer(productId); //  update the buyerId for the transaction
+      alert("Contact the seller to purchase item.")
     } catch (error) {
       console.error("Error processing the purchase:", error);
     }
   };
-
 
   const handleWatch = async () => {
     try {
@@ -82,7 +80,7 @@ const ProductDetailsPage = () => {
       
       <div className="item-price">Price: ${product.price}</div>
       <div className="item-description"><strong>Description:</strong> {product.description}</div>
-      <div className="item-description"><strong>Seller:</strong> {product.sellerName}</div>
+      <div className="item-venmo"><strong>Seller:</strong> {product.sellerName}</div>
       <div className="item-venmo">
         <strong>Seller's Venmo:</strong> {sellerVenmo || "Error: No Venmo Found"}
       </div>
