@@ -25,15 +25,15 @@
 .topappbar .title {
   flex-grow: 1; 
   text-align: left; /* Align title to the left */
-  font-size: 20px;
+  font-size: 1.25em;
 }
 
 .topappbar .icon {
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5em;
 }
 
-.topappbar .navigation {
+.navigation {
   display: flex;
   gap: 10px; /* Space between buttons */
 }
@@ -52,8 +52,7 @@
 }
 
 .button-52 {
-
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 200;
   letter-spacing: 1px;
   padding: 13px 20px 13px;
@@ -86,4 +85,51 @@
   left: 0px;
 } 
 
-/* End of header css  */
+
+.navigation.open {
+  display: block; /* Show menu on mobile */
+}
+
+.hamburger {
+  display: none; /* Hidden on larger screens */
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    display: none; /* Hide by default */
+    flex-direction: column; /* Stack buttons vertically */
+    background-color: #add8e6; /* Match navbar background */
+    position: absolute;
+    top: 60px; /* Adjust position below the navbar */
+    right: 0;
+    width: 100%; /* Full-width menu */
+    padding: 10px;
+    border-top: 1px solid #8cba80;
+  }
+
+  .hamburger {
+    display: block; /* Show on smaller screens */
+    font-size: 1em;
+  }
+
+  .topappbar .title {
+    font-size: 1.125em; /* Slightly smaller title for mobile */
+  }
+
+  .button-52 {
+    margin: 1px 1px;
+  }
+  .button-52:after {
+    content: "";
+    background-color: none;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    transition: 0.0s;
+  }
+}

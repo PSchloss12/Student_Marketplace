@@ -1,13 +1,23 @@
 // This component will render the navigation bar or header for each page
 import "./styles.css";
-import {Link} from "react-router-dom";
-// ToDo: add additional pages/functionality
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    console.log(!menuOpen)
+  };
+
   return(
     <div className="topappbar">
       <div className="title">ND Marketplace</div>
-      <div className="navigation">
+      <div className="hamburger" onClick={toggleMenu}>
+        ☰
+      </div>
+      <div className={`navigation ${menuOpen ? "open" : ""}`}>
         <Link to="/">
           <button
             className="button-52"
