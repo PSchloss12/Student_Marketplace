@@ -19,9 +19,10 @@ const ProductPage = () => {
   useEffect(() => {
     getAvailableProducts()
       .then((data) => {
-        setProducts(data);
-        setFilteredProducts(data);
-        setObjectList(data);
+        const s = data.sort((a, b) => a.attributes.price - b.attributes.price);
+        setProducts(s);
+        setFilteredProducts(s);
+        setObjectList(s);
       })
       .catch((error) => console.error("Error fetching available products:", error));
   }, []);
@@ -39,14 +40,15 @@ const ProductPage = () => {
   // Filter products based on search input
   const fetchSuggestions = (searchTerm) => {
     const prods = products.filter((product) =>
-      product.get("description").includes(searchTerm) || product.get("title").includes(searchTerm)
+      String(product.get("description")).toLowerCase().includes(String(searchTerm).toLowerCase()) ||
+      String(product.get("title")).toLowerCase().includes(String(searchTerm).toLowerCase())
     );
     setFilteredProducts(prods);
   };
 
   // Filter products by selected search item
   const handleOnSelect = (search) => {
-    const result = products.filter((product) => product.get("title") === search);
+    const result = products.filter((product) => String(product.get("title")).toLowerCase() === String(search).toLowerCase());
     setFilteredProducts(result);
   };
 
@@ -65,7 +67,7 @@ const ProductPage = () => {
 
       return matchesPrice && matchesCategory && matchesSeller;
     });
-    setFilteredProducts(result);
+    setFilteredProducts(result.sort((a, b) => a.attributes.price - b.attributes.price));
   };
 
   const toggleSellerNames = () => setShowSellerIds(!showSellerNames);
@@ -136,8 +138,8 @@ const ProductPage = () => {
           onClick={toggleSellerNames}
         />
 
-        <button className="product-filter-button" onClick={filterProducts}>Filter</button>
-        <button className="product-clear-button" onClick={clearFilters}>Clear</button>
+        <button className="product-filter-button" name="filter" onClick={filterProducts}>Filter</button>
+        <button className="product-clear-button" name="clear" onClick={clearFilters}>Clear</button>
       </div>
       <hr />
       <div className="product-listings">
