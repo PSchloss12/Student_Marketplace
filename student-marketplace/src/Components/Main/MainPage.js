@@ -29,7 +29,7 @@ import './styles.css';
           <p>The place to shop for all your college needs!</p>
         </header>
         <section className="featured-products-section">
-          <h2>Featured Products</h2>
+          <h2>Your Watched Products</h2>
           <div className="product-listings">
             {featuredProducts.map((product) => (
               <Link
