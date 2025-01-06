@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { createUser } from "./AuthService";
 import AuthForm from "./AuthForm";
 import { useNavigate } from "react-router-dom";
@@ -15,11 +15,11 @@ const Register = () => {
   });
   
   // flags in the state to watch for add/remove updates
-  const readyToSubmit = useRef(false);
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
 
   // register changes
   useEffect(() => {
-    if (newUser && readyToSubmit.current) {
+    if (newUser && readyToSubmit) {
       createUser(newUser).then((userCreated) => {
         if (userCreated) {
           alert(
@@ -27,7 +27,7 @@ const Register = () => {
           );
           navigate("/");
         }
-        readyToSubmit.current = false;
+        setReadyToSubmit(false);
       });
     }
   }, [navigate, newUser, readyToSubmit]);
@@ -62,7 +62,7 @@ const Register = () => {
       alert("Please use your .edu email!");
       return;
     };
-    readyToSubmit.current = true;
+    setReadyToSubmit(true);
   };
   
   return (
