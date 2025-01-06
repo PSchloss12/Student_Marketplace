@@ -19,7 +19,10 @@ import './styles.css';
         try {
           if (currUser){
             getFavorites(currUser?.id).then((data) => {
-            setFeaturedProducts(data);
+              // setFeaturedProducts(data.filter((prod)=>{
+              //   return prod.attributes.isAvailable;
+              // }));
+              setFeaturedProducts(data);
             });
           }
         } catch (error) {
@@ -48,6 +51,7 @@ import './styles.css';
                   "sellerId" : product.get("sellerId"),
                   "title" : product.get("title"),
                   "imgUrls" : product.get("imgUrls"),
+                  "sellerName": product.get("sellerUsername"),
                 } }
                 className="listing"
               >

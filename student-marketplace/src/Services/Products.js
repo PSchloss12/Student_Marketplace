@@ -70,12 +70,10 @@ export const getFavorites = async () => {
 
     // If no favorites are found, return all available products
     if (currentFavorites.length === 0) {
-      console.log("No favorites found for this user.");
+      // console.log("No favorites found for this user.");
       
-      // get all available products
-      const query = new Parse.Query("Product");
       try {
-        const allProducts = await query.find();
+        const allProducts = await getAvailableProducts();
         return allProducts; // Return all products
       } catch (error) {
         console.error("Error fetching all products:", error);
@@ -120,29 +118,50 @@ export const getAvailableProducts = async () => {
 export const addToFavorites = async (productId) => {
   const currentUser = Parse.User.current();  // Get the current user
   if (!currentUser) {
-    throw new Error("User is not logged in.");
+    console.error("User is not logged in.");
   }
-
   try {
     const user = currentUser; // Use the logged-in user
     const currentFavorites = user.get("favorites") || []; 
 
-
     // If product is already in favorites, return without doing anything
     if (currentFavorites.includes(productId)) {
-      console.log("Product is already in favorites.");
+      // console.log("Product is already in favorites.");
       return; 
     }
-
-    // Add the product to the array
     currentFavorites.push(productId);
     user.set("favorites", currentFavorites);
 
     // Save the updated user object
     await user.save();
-    console.log("Product added to favorites successfully.");
+    // console.log("Product added to favorites successfully.");
   } catch (error) {
     console.error("Error adding product to favorites:", error);
-    throw error; 
+  }
+};
+
+// UPDATE: add a product to the current  user's favorite array 
+export const removeFromFavorites = async (productId) => {
+  const currentUser = Parse.User.current(); // Get the current user
+  if (!currentUser) {
+    console.error("User is not logged in.");
+    return; // Exit if no user is logged in
+  }
+  try {
+    const user = currentUser; // Use the logged-in user
+    const currentFavorites = user.get("favorites") || [];
+    // If the product is not in favorites, return without doing anything
+    const index = currentFavorites.indexOf(productId);
+    if (index === -1) {
+      // console.log("Product not in favorites, nothing to remove.");
+      return;
+    }
+    // Remove the product from the favorites array
+    currentFavorites.splice(index, 1); // Modify the array directly
+    user.set("favorites", currentFavorites); // Set the updated array
+    await user.save();
+    // console.log("Removed from favorites successfully");
+  } catch (error) {
+    console.error("Error removing product from favorites:", error);
   }
 };

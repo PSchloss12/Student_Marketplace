@@ -28,6 +28,7 @@ const UserListingsPage = () => {
             imgUrls: product.get("imgUrls"),
             sellerId: transaction.get("sellerId"),
             isAvailable: product.get("isAvailable"),
+            sellerName: product.get("sellerUsername"),
           };
           listing.isAvailable ? unsold.push(listing) : sold.push(listing);
         }

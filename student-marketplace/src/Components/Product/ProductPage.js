@@ -152,10 +152,9 @@ const ProductPage = () => {
               description: product.get("description"),
               isAvailable: product.get("isAvailable"),
               price: product.get("price"),
-              sellerUsername: product.get("sellerUsername"),
               title: product.get("title"),
               imgUrls: product.get("imgUrls"),
-              sellerName: product.get("sellerUsername")
+              sellerName: product.get("sellerUsername"),
             }}
             className="listing"
           >

@@ -2,9 +2,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from 'react-router-dom';
 import { getSellerVenmo } from "../../../Services/Transactions";  
-import { updateAvailable, addToFavorites } from "../../../Services/Products"; 
+import { updateAvailable, addToFavorites, removeFromFavorites } from "../../../Services/Products"; 
 import { transactionBuyer } from "../../../Services/Transactions"; 
 import ImageGallery from 'react-image-gallery';
+import Parse from "parse";
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './styles.css';
 
@@ -17,14 +18,25 @@ const ProductDetailsPage = () => {
   const [isWatched, setIsWatched] = useState(false);
   const [sellerVenmo, setSellerVenmo] = useState(null);
 
+  const currUser = Parse.User.current();
+
   // Memoize the product details from location.state
   const product = useMemo(() => location.state || {}, [location.state]);
   
   useEffect(() => {
-    if (productId) {  // Use productId to get sellerVenmo
-      getSellerVenmo(productId)
-        .then((venmo) => setSellerVenmo(venmo))
-        .catch((error) => console.error("Error fetching seller's Venmo:", error));
+    try {
+      if (productId) {  // Use productId to get sellerVenmo
+        getSellerVenmo(productId)
+          .then((venmo) => setSellerVenmo(venmo))
+          .catch((error) => console.error("Error fetching seller's Venmo:", error));
+        if (currUser.get('favorites')?.includes(productId)){
+          setIsWatched(true);
+        } else {
+          setIsWatched(false);
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
   }, [productId]);
 
@@ -52,8 +64,13 @@ const ProductDetailsPage = () => {
 
   const handleWatch = async () => {
     try {
-      await addToFavorites(productId);
-      setIsWatched(true); 
+      if (isWatched){
+        setIsWatched(!isWatched);
+        await removeFromFavorites(productId);
+      } else {
+        setIsWatched(!isWatched);
+        await addToFavorites(productId);
+      }
     } catch (error) {
       console.error("Error adding product to favorites:", error);
     }
