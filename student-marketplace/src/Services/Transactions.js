@@ -90,7 +90,7 @@ export const getTransaction = (id) => {
         if (transactions.length > 0) {
           return transactions[0].get("sellerVenmo");
         } else {
-          throw new Error("No transaction found for the product.");
+          console.error("No transaction found for the product.");
         }
       })
       .catch((error) => {
@@ -110,14 +110,14 @@ export const getTransaction = (id) => {
       const transactions = await query.find(); // Fetch all matching transactions
   
       if (transactions.length === 0) {
-        throw new Error("No transaction found for the given product.");
+        console.error("No transaction found for the given product.");
       }
   
       const transaction = transactions[0];
   
       const currentUser = Parse.User.current();
       if (!currentUser) {
-        throw new Error("No current user found. User must be logged in to make a purchase.");
+        console.error("No current user found. User must be logged in to make a purchase.");
       }
   
       // Set the buyerId to the current user
