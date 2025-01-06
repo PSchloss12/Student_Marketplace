@@ -24,7 +24,6 @@ export const getUser = (id) => {
   const query = new Parse.Query(Parse.User);
   return query.get(id)
     .then((user) => {
-      console.log("User found:", user);
       return user;
     })
     .catch((error) => {

@@ -26,6 +26,7 @@ const SellerForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [successMessage, setSuccessMessage] = useState('');
   const [sellerUsername, setSellerUsername] = useState('');
+  const [sellerVenmo, setSellerVenmo] = useState('');
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -33,7 +34,9 @@ const SellerForm = () => {
       if (currentUser) {
         try {
           const user = await getUser(currentUser.id); // Fetch the user by ID
-          setSellerUsername(user.get("username")); // Set the sellerUsername
+          setSellerUsername(user.get("username"));
+          setSellerVenmo(user.get("venmo"));
+
         } catch (error) {
           console.error("Error fetching user:", error);
         }
@@ -206,7 +209,8 @@ const SellerForm = () => {
             name="venmo"
             value={formData.venmo}
             onInput={handleChange}
-            placeholder="@your-username"
+            placeholder={sellerVenmo ? sellerVenmo : "@your-username"}
+            value={sellerVenmo}
             required
           />
         </label>

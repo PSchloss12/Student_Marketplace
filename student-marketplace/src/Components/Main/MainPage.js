@@ -16,12 +16,17 @@ import './styles.css';
       if (featuredProducts?.length>0) {
         setFeaturedProducts(featuredProducts)
       } else {
-        // Fetch the favorites for the current user
-        getFavorites(currUser?.id).then((data) => {
-        setFeaturedProducts(data);
-        });
+        try {
+          if (currUser){
+            getFavorites(currUser?.id).then((data) => {
+            setFeaturedProducts(data);
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
     }
-    }, [currUser]); 
+    }, [currUser]);
     return (
       <div className="main-page">
         <header className="main-page-header">
