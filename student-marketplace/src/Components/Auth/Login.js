@@ -20,7 +20,7 @@ const Login = () => {
       loginUser(currentUser).then((userLoggedIn) => {
         if (userLoggedIn) {
           alert(
-            `${userLoggedIn.get("firstName")}, you successfully logged in!`
+            `${userLoggedIn.get("username")}, you successfully logged in!`
           );
           navigate("/");
         }
