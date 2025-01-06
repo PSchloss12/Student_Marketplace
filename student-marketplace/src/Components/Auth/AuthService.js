@@ -4,9 +4,14 @@ import Parse from "parse";
 export const createUser = (newUser) => {
   const user = new Parse.User();
 
-  user.set("username", newUser.username);
+  // user.set("username", newUser.username);
+  user.set("username", newUser.email);
   user.set("email", newUser.email);
   user.set("password", newUser.password);
+
+  if (newUser?.venmo){
+    user.set("venmo", newUser.venmo);
+  }
 
   return user
     .signUp()
@@ -23,6 +28,7 @@ export const loginUser = (currUser) => {
   const user = new Parse.User();
 
   user.set("username", currUser.email);
+  user.set("email", currUser.email);
   user.set("password", currUser.password);
 
   return user

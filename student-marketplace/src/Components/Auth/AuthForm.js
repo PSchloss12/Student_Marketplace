@@ -4,7 +4,7 @@ import React from "react";
 const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
     return (
         <form className="login-form" onSubmit={onSubmit}>
-            <div>
+            {/* <div>
                     <label className="login-form-label" htmlFor="username">
                     Username:
                     </label>
@@ -17,9 +17,8 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
                     onChange={onChange}
                     required
                     />
-            </div>
+            </div> */}
             {/* TODO: don't require email for login */}
-            {false ? <></>:
             <div>
                 <label className="login-form-label" htmlFor="email">
                 Email:
@@ -31,10 +30,9 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
                 name="email"
                 value={user.email}
                 onChange={onChange}
-                required = {!isLogin}
+                required
                 />
             </div>
-            }
             <label className="login-form-label" htmlFor="password">
             Password:
             </label>
@@ -49,15 +47,34 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
             />
             {!isLogin ?
                 <div>
-                    <label className="login-form-label" htmlFor="confirm-password">
-                    Retype Password:
-                    </label>
-                    <input
-                    className="login-form-input"
-                    type="password"
-                    id="confirm-password"
-                    required
-                    />
+                    <div>
+                        <label className="login-form-label" htmlFor="confirmPassword">
+                        Retype Password:
+                        </label>
+                        <input
+                        className="login-form-input"
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={user.confirmPassword}
+                        onChange={onChange}
+                        required
+                        />
+                    </div>
+                    <div>
+                        <label className="login-form-label" htmlFor="venmo">
+                        Venmo:
+                        </label>
+                        <input
+                        className="login-form-input"
+                        type="text"
+                        id="venmo"
+                        name="venmo"
+                        value={user.venmo}
+                        onChange={onChange}
+                        required
+                        />
+                    </div> 
                 </div>
                     : <></>
              }
