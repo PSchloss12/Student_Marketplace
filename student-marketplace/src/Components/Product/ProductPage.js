@@ -113,7 +113,7 @@ const ProductPage = () => {
           <option value="dormEssentials">Dorm Essentials</option>
           <option value="tickets">Tickets</option>
           <option value="electronics">Electronics</option>
-          <option value="textbooks">Textbooks</option>
+          <option value="books">Textbooks</option>
           <option value="miscellaneous">Miscellaneous</option>
         </select>
 
@@ -127,7 +127,7 @@ const ProductPage = () => {
           onInput={(e) => setPriceLimit(e.target.value)}
         />
 
-        <label className="filter-label" htmlFor="seller">Seller ID:</label>
+        <label className="filter-label" htmlFor="seller">Seller:</label>
         <input
           className="filter-input"
           type="text"

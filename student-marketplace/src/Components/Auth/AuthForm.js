@@ -63,7 +63,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
                     </div>
                     <div>
                         <label className="login-form-label" htmlFor="venmo">
-                        Venmo:
+                        Venmo (include the @):
                         </label>
                         <input
                         className="login-form-input"
@@ -72,6 +72,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
                         name="venmo"
                         value={user.venmo}
                         onChange={onChange}
+                        placeholder="@your-venmo"
                         required
                         />
                     </div> 

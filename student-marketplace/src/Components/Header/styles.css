@@ -112,7 +112,7 @@
 
   .hamburger {
     display: block; /* Show on smaller screens */
-    font-size: 1em;
+    font-size: 1.5em;
   }
 
   .topappbar .title {
