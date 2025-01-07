@@ -46,3 +46,4 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Filtering capability (by price and category) on the products page
 - venmo attribute is correctly stored when a product is posted and displayed on the product detail page
+- Make header and products page more responsive
