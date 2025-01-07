@@ -117,7 +117,7 @@ textarea,
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 510px) {
   .product-title {
     font-size: 1.5em; 
   }
@@ -139,6 +139,15 @@ textarea,
 
   .search-bar-container{
     width: 100%;
+    z-index: 1;
+    position: relative;
+  }
+
+  .product-listings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3 columns of items */
+    gap: 10px; /* Space between  items */
+    margin-top: 15px;
   }
 }
 

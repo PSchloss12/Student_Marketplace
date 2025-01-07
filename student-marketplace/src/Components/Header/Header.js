@@ -8,7 +8,6 @@ const Header = () => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    console.log(!menuOpen)
   };
 
   return(
@@ -22,6 +21,7 @@ const Header = () => {
           <button
             className="button-52"
             role="button"
+            onClick={toggleMenu}
           >
             Homepage
           </button>
@@ -30,6 +30,7 @@ const Header = () => {
           <button
             className="button-52"
             role="button"
+            onClick={toggleMenu}
           >
             View Products
           </button>
@@ -38,6 +39,7 @@ const Header = () => {
           <button
             className="button-52"
             role="button"
+            onClick={toggleMenu}
           >
             List Item
           </button>
@@ -46,6 +48,7 @@ const Header = () => {
           <button
             className="button-52"
             role="button"
+            onClick={toggleMenu}
           >
             Your Listings
           </button>
@@ -54,6 +57,7 @@ const Header = () => {
           <button
             className="button-52"
             role="button"
+            onClick={toggleMenu}
           >
             Login
           </button>

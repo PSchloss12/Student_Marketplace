@@ -100,13 +100,14 @@
   .navigation {
     display: none; /* Hide by default */
     flex-direction: column; /* Stack buttons vertically */
-    background-color: #add8e6; /* Match navbar background */
+    background-color: #add8e6;
     position: absolute;
     top: 60px; /* Adjust position below the navbar */
     right: 0;
     width: 100%; /* Full-width menu */
     padding: 10px;
     border-top: 1px solid #8cba80;
+    z-index: 10;
   }
 
   .hamburger {
@@ -119,17 +120,19 @@
   }
 
   .button-52 {
-    margin: 1px 1px;
+    margin: 0.17em auto;
+    width: 100%;
+    border-radius: 0.1em;
   }
   .button-52:after {
     content: "";
-    background-color: none;
+    background-color: #CACF85;
     width: 100%;
     z-index: -1;
     position: absolute;
     height: 100%;
-    top: 0px;
-    left: 0px;
-    transition: 0.0s;
+    top: 0.25em;
+    left: 0.25em;
+    transition: 0.2s;
   }
 }
