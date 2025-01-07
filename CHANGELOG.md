@@ -46,4 +46,20 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Filtering capability (by price and category) on the products page
 - venmo attribute is correctly stored when a product is posted and displayed on the product detail page
+
+## [0.4.1] - 2025-1-6 (not released)
+   
+### Added
+- Allow removing items from favorites
+- Products page is sorted by price
+- Seller form should populate venmo by default
+- Mark as Sold button on listings page
+### Changed
+- Only sellers can mark their items as unavailable so that randoms can't remove items from view without paying
+- Buy button changed to give alert to contact seller
+### Fixed
+- Login no longer requires both email and password
+- Registration requires venmo and checks that email ends in .edu and that password matches password-confirm
+- Search bar matches case and is less fuzzy
+- Filter by seller displays seller emails rather than seller ids
 - Make header and products page more responsive
